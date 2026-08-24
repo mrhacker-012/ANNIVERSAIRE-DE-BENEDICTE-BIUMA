@@ -21,7 +21,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#0d0809;}
 
-/* --- STRUCTURE PRINCIPALE CENTRÉE --- */
+/* --- STRUCTURE PRINCIPALE --- */
 #app {
   position: relative;
   width: 100vw;
@@ -34,7 +34,6 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
   justify-content: center;
 }
 
-/* Décoration Bokeh */
 .bokeh i{
   position:absolute;display:block;border-radius:50%;
   background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.8),rgba(255,255,255,.08) 45%,transparent 70%);
@@ -49,19 +48,18 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
   50%{transform:translate3d(20px,-40px,0) scale(1.1);opacity:.5}
 }
 
-.glitter{position:absolute;inset:0;pointer-events:none;opacity:.1;background-image: radial-gradient(circle, #fff 1px, transparent 1px);background-size: 30px 30px; z-index: 1;}
-
 /* --- SIGNATURE DISCRÈTE ELENAEL --- */
 .elenael-signature {
     text-align: center;
     opacity: 0.7;
-    margin-top: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     z-index: 10;
 }
 .sig-conception { font: 400 9px "Montserrat", sans-serif; color: white; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2px;}
 .sig-brand {
     font-family: "Great Vibes", cursive;
-    font-size: 26px;
+    font-size: 24px;
     background: var(--gold-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -78,25 +76,23 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Centrage vertical total */
+  justify-content: center;
   padding: 20px;
   text-align: center;
   z-index: 5;
+  overflow-y: auto; /* Permet de défiler si le contenu est long */
   transition: opacity 0.7s ease, transform 0.8s ease;
 }
 
-/* Enveloppe Centrée */
-.envelope-wrap {
-  perspective: 1000px;
-  margin: 30px 0;
-}
-.envelope{width:min(300px, 85vw); height:190px; position:relative; cursor:pointer; transform-style:preserve-3d; transition:transform 0.8s;}
+/* Enveloppe */
+.envelope-wrap { perspective: 1000px; margin: 30px 0; }
+.envelope{width:min(300px, 85vw); height:180px; position:relative; cursor:pointer; transform-style:preserve-3d; transition:transform 0.8s;}
 .envelope.open{transform:rotateX(12deg) translateY(20px)}
 .env-back,.env-front{position:absolute;inset:0;border-radius:6px;background:linear-gradient(145deg,#f7cfca,#db9098 65%,#b96573);}
 .env-front{clip-path:polygon(0 48%,50% 100%,100% 48%,100% 100%,0 100%);z-index:4}
 .env-flap{position:absolute;left:0;top:0;width:100%;height:60%;z-index:5;background:#f9d5d0;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:50% 0%;transition:transform 0.8s;}
 .envelope.open .env-flap{transform:rotateX(180deg)}
-.paper{position:absolute;z-index:2;left:10%;top:10%;width:80%;height:80%;background:#fffaf4;color:#633944;padding:15px;transform:translateY(20px);transition:transform 0.8s 0.1s; display: flex; flex-direction: column; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);}
+.paper{position:absolute;z-index:2;left:10%;top:10%;width:80%;height:80%;background:#fffaf4;color:#633944;padding:20px;transform:translateY(20px);transition:transform 0.8s 0.1s; display: flex; flex-direction: column; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);}
 .envelope.open .paper{transform:translateY(-95px)}
 .seal{
   position:absolute;z-index:9;left:50%;top:50%;transform:translate(-50%,-50%);width:70px;height:70px;border-radius:50%;
@@ -105,38 +101,37 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-/* --- TEXTE CONTENU PRINCIPAL --- */
-.hero-name{font:400 clamp(65px, 12vw, 100px) "Great Vibes",cursive;color:#f7ded5;text-shadow:2px 4px 0 rgba(112,55,65,0.4);margin:0;}
-.hero-last{font:500 clamp(18px, 3vw, 28px) "Cormorant Garamond",serif;letter-spacing:8px;text-transform:uppercase; margin-top: -15px; margin-bottom: 25px;}
+/* --- CONTENU --- */
+.hero-name{font:400 clamp(60px, 12vw, 90px) "Great Vibes",cursive;color:#f7ded5;text-shadow:2px 4px 0 rgba(112,55,65,0.4);margin:0;}
+.hero-last{font:500 18px "Cormorant Garamond",serif;letter-spacing:6px;text-transform:uppercase; margin-top: -15px; margin-bottom: 15px;}
 
-/* Compte à rebours centré */
-.countdown{width: 100%; max-width: 400px; margin-bottom: 25px; padding: 15px; border: 1px solid rgba(255,255,255,0.2); border-radius: 15px; background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);}
-.timer{display:flex;justify-content:center;gap:25px}
-.num{font:600 28px "Montserrat",sans-serif; color: white;}
-.lab{font:9px "Montserrat",sans-serif;text-transform:uppercase; color: #f7ded5; letter-spacing: 1.5px;}
+.countdown{width: 100%; max-width: 380px; margin-bottom: 20px; padding: 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);}
+.timer{display:flex;justify-content:center;gap:20px}
+.num{font:600 24px "Montserrat",sans-serif; color: white;}
+.lab{font:8px "Montserrat",sans-serif;text-transform:uppercase; color: #f7ded5;}
 
-/* Carte Dress Code */
 .card {
   width: 100%;
   max-width: 380px;
-  padding: 25px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.96);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  padding: 20px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  margin-bottom: 15px;
 }
 .btn {
-  border: 0;
-  border-radius: 60px;
-  padding: 15px 30px;
-  background: linear-gradient(135deg,#a85c6a,#7b3f4c);
-  color: #fff;
-  cursor: pointer;
-  width: 100%;
-  font-weight: 600;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-top: 15px;
+  border: 0; border-radius: 50px; padding: 12px 20px;
+  background: linear-gradient(135deg,#a85c6a,#7b3f4c); color: #fff;
+  cursor: pointer; width: 100%; font-weight: 600; font-size: 12px;
+  text-transform: uppercase; letter-spacing: 1.5px; margin-top: 10px;
+}
+
+/* --- LIVRE D'OR --- */
+.guestbook-title { font-family: 'Great Vibes'; font-size: 28px; color: #713d48; margin-bottom: 10px; }
+.textarea {
+  width: 100%; height: 80px; border: 1px solid #d7b2ad; border-radius: 10px;
+  padding: 10px; font-family: 'Montserrat'; font-size: 13px; resize: none; outline: none;
+  background: #fffaf7; color: #5a353d;
 }
 </style>
 </head>
@@ -144,12 +139,11 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
 <body>
 
 <div id="app">
-  <div class="glitter"></div>
   <div class="bokeh"><i></i><i></i><i></i></div>
 
   <!-- ÉCRAN 1: COUVERTURE -->
   <section class="screen" id="cover">
-    <div style="font:600 12px Montserrat; letter-spacing:4px; color:white; margin-bottom:15px;" id="coverWelcome">
+    <div style="font:600 11px Montserrat; letter-spacing:3px; color:white; margin-bottom:10px;" id="coverWelcome">
         INVITATION POUR VOUS
     </div>
     
@@ -157,7 +151,7 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
       <div class="envelope" id="envelope">
         <div class="env-back"></div>
         <div class="paper">
-            <div style="font-family:'Great Vibes';font-size:28px; color:#713d48">Bénédicte</div>
+            <div style="font-family:'Great Vibes';font-size:24px; color:#713d48">Bénédicte</div>
             <div style="font-size:10px;letter-spacing:2px; margin-top:5px; font-weight:600; color:#b76b72">5 SEPTEMBRE</div>
         </div>
         <div class="env-flap"></div>
@@ -166,7 +160,6 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
       </div>
     </div>
     
-    <!-- Signature cliquable vers WhatsApp Pro -->
     <div class="elenael-signature">
       <div class="sig-conception">Une Conception Signée</div>
       <a href="https://wa.me/243992180557" target="_blank" class="sig-brand">Elenael Events</a>
@@ -175,13 +168,13 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
     </div>
   </section>
 
-  <!-- ÉCRAN 2: CONTENU PRINCIPAL -->
+  <!-- ÉCRAN 2: CONTENU PRINCIPAL + LIVRE D'OR -->
   <section class="screen" id="mainScreen" style="display:none; opacity: 0;">
     <div class="hero">
       <div class="hero-name">Bénédicte</div>
       <div class="hero-last">Biuma</div>
-      <div style="font-size:20px; margin-bottom: 10px; color: white; font-weight: 300;">5 Septembre 2026 • 16h00</div>
-      <div style="font-size:11px; letter-spacing:3px; font-weight:600; color:white; border: 1px solid white; padding:6px 18px; display:inline-block; border-radius:5px; margin-bottom: 25px;">TENUE BLANCHE</div>
+      <div style="font-size:16px; margin-bottom: 5px; color: white;">5 Septembre 2026 • 16h00</div>
+      <div style="font-size:10px; letter-spacing:2px; font-weight:600; color:white; border: 1px solid white; padding:4px 12px; display:inline-block; border-radius:5px; margin-bottom: 15px;">TENUE BLANCHE</div>
     </div>
 
     <div class="countdown">
@@ -193,13 +186,21 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
       </div>
     </div>
     
+    <!-- Carte de Confirmation -->
     <div class="card">
-      <div style="font-family:'Great Vibes'; font-size:42px; color:#b76b72; margin-bottom: 5px;">Tenue blanche</div>
-      <p style="font-size:15px; color:#633944; line-height: 1.6;">Votre présence est vivement souhaitée pour cette journée mémorable.</p>
-      <button class="btn" onclick="confirmPresence()">Confirmer ma présence</button>
+      <div style="font-family:'Great Vibes'; font-size:32px; color:#b76b72; margin-bottom: 5px;">Tenue blanche</div>
+      <p style="font-size:13px; color:#633944; line-height: 1.4; margin: 0;">Votre présence est vivement souhaitée pour cette journée.</p>
+      <button class="btn" onclick="confirmPresence()">✓ Confirmer ma présence</button>
     </div>
 
-    <!-- Signature en bas de la page principale -->
+    <!-- Carte Livre d'Or -->
+    <div class="card">
+      <div class="guestbook-title">Livre d'or</div>
+      <p style="font-size:12px; color:#75555b; margin-bottom: 10px;">Laissez un message pour Bénédicte</p>
+      <textarea class="textarea" id="messageText" placeholder="Votre petit mot ici..."></textarea>
+      <button class="btn" style="background:linear-gradient(135deg,#7b3f4c,#4b3035)" onclick="sendLivreDor()">♡ Signer le livre d'or</button>
+    </div>
+
     <div class="elenael-signature">
       <div class="sig-conception">Une Conception Signée</div>
       <a href="https://wa.me/243992180557" target="_blank" class="sig-brand">Elenael Events</a>
@@ -214,52 +215,48 @@ const EVENT_DATE = new Date("2026-09-05T16:00:00");
 const WHATSAPP_CONFIRM = "243821328811"; 
 let opened = false;
 
-// Personnalisation du nom via l'URL (?n=Nom)
 const params = new URLSearchParams(window.location.search);
 const guest = params.get("n") || params.get("invite") || "";
 const guestName = decodeURIComponent(guest).replace(/\+/g," ").trim();
 
 if(guestName) {
-    document.getElementById("coverWelcome").innerHTML = "INVITATION POUR VOUS <br><span style='font-size:22px; color:#f7ded5; letter-spacing:2px;'>" + guestName.toUpperCase() + "</span>";
+    document.getElementById("coverWelcome").innerHTML = "INVITATION POUR VOUS <br><span style='font-size:18px; color:#f7ded5; letter-spacing:1px;'>" + guestName.toUpperCase() + "</span>";
 }
 
 const env = document.getElementById("envelope");
 env.addEventListener("click", () => {
   if(opened) return;
   opened = true;
-  
-  // Audio
-  const audio = new Audio('esili.mp3');
-  audio.play();
-  
+  new Audio('esili.mp3').play();
   env.classList.add("open");
-  
   setTimeout(() => {
-    const cover = document.getElementById("cover");
-    const main = document.getElementById("mainScreen");
-    
-    cover.style.opacity = "0";
-    cover.style.transform = "scale(1.1)";
-    
+    document.getElementById("cover").style.opacity = "0";
+    document.getElementById("cover").style.transform = "scale(0.9)";
     setTimeout(() => {
-      cover.style.display = "none";
-      main.style.display = "flex";
-      setTimeout(() => { main.style.opacity = "1"; }, 50);
+      document.getElementById("cover").style.display = "none";
+      document.getElementById("mainScreen").style.display = "flex";
+      setTimeout(() => { document.getElementById("mainScreen").style.opacity = "1"; }, 50);
     }, 600);
   }, 1000);
 });
 
 function confirmPresence() {
   const name = guestName || "Invité(e)";
-  const msg = `✨ *CONFIRMATION — BÉNÉDICTE BIUMA* ✨\n\n👤 *Nom :* ${name}\n📅 *Date :* 5 Septembre\n🕓 *Heure :* 16h00\n⚪ *Dress Code :* Tenue blanche\n\nJe confirme ma présence avec joie !`;
+  const msg = `✨ *CONFIRMATION — BÉNÉDICTE BIUMA* ✨\n\n👤 *Nom :* ${name}\n📅 *Date :* 5 Septembre\n🕓 *Heure :* 16h00\n⚪ *Dress Code :* Tenue blanche\n\nJe confirme ma présence !`;
+  window.open(`https://wa.me/${WHATSAPP_CONFIRM}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function sendLivreDor() {
+  const text = document.getElementById("messageText").value.trim();
+  if(!text) { alert("Veuillez écrire un message"); return; }
+  const name = guestName || "Invité(e)";
+  const msg = `💌 *LIVRE D'OR — BÉNÉDICTE BIUMA* 💌\n\n👤 *De :* ${name}\n\n📝 *Message :*\n${text}`;
   window.open(`https://wa.me/${WHATSAPP_CONFIRM}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
 function updateCountdown() {
-  const now = new Date();
-  const diff = EVENT_DATE - now;
+  const diff = EVENT_DATE - new Date();
   if (diff <= 0) return;
-  
   document.getElementById("days").innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
   document.getElementById("hours").innerText = Math.floor((diff % 86400000) / 3600000).toString().padStart(2, '0');
   document.getElementById("minutes").innerText = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
@@ -268,6 +265,5 @@ function updateCountdown() {
 setInterval(updateCountdown, 1000);
 updateCountdown();
 </script>
-
 </body>
 </html>
