@@ -1,217 +1,511 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bénédicte Biuma - Elenael Events Grand Prestige</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cinzel:wght@400;700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --gold: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-            --paper-pink: #f48fb1;
-            --paper-texture: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-            --emerald: #013220;
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#b96f72">
+<title>Bénédicte Biuma — Invitation</title>
 
-        body, html { margin: 0; padding: 0; height: 100%; background: #050505; font-family: 'Montserrat', sans-serif; overflow: hidden; perspective: 2000px; }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 
-        /* --- AMBIANCE CINÉMATIQUE --- */
-        .stage {
-            position: fixed; width: 100%; height: 100%;
-            display: flex; justify-content: center; align-items: center;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
-            z-index: 1; transition: transform 2s cubic-bezier(0.7, 0, 0.3, 1);
-        }
+<style>
+:root{
+  --rose:#b76b72;
+  --rose-dark:#713d48;
+  --cream:#fff7f0;
+  --gold:#d8b08a;
+  --ink:#4b3035;
+  --glass:rgba(255,248,242,.17);
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{font-family:"Cormorant Garamond",serif;background:#140b0e;color:white}
+button,input,textarea,select{font:inherit}
 
-        /* --- OISEAUX RÉALISTES EN LIGNE --- */
-        .bird-system { position: absolute; width: 100%; height: 100%; pointer-events: none; z-index: 15; }
-        .bird {
-            position: absolute; top: 50%; left: -100px;
-            width: 40px; height: 40px;
-            offset-path: path('M 0 200 C 300 0, 700 400, 1200 100');
-            animation: fly-path 10s infinite linear;
-        }
-        .bird svg { fill: #d4a373; animation: wing-flap 0.5s infinite alternate ease-in-out; }
-        
-        @keyframes fly-path { 
-            0% { offset-distance: 0%; transform: scale(0.3); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { offset-distance: 100%; transform: scale(1.5); opacity: 0; }
-        }
-        @keyframes wing-flap { 
-            from { transform: rotateX(0deg); } to { transform: rotateX(70deg); } 
-        }
+#app{
+  position:relative;width:100vw;height:100vh;overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 7%,rgba(255,231,216,.9) 0%,rgba(255,202,190,.5) 18%,transparent 40%),
+    linear-gradient(155deg,#e8aaa5 0%,#c7777d 35%,#8e4c5b 72%,#4b2936 100%);
+  isolation:isolate;
+}
+#app:after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:radial-gradient(circle at 50% 52%,transparent 30%,rgba(47,14,25,.23) 100%);
+}
 
-        /* --- ENVELOPPE 3D RÉALISTE --- */
-        .envelope-container {
-            width: 320px; height: 450px;
-            transform-style: preserve-3d;
-            position: relative; cursor: pointer;
-            transition: all 1.5s cubic-bezier(0.7, 0, 0.3, 1);
-        }
+/* ---------- REALISTIC BACKGROUND ---------- */
+.bg-glow{position:absolute;inset:-15%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(circle at 12% 35%,rgba(255,255,255,.24) 0 2%,transparent 7%),
+    radial-gradient(circle at 86% 28%,rgba(255,255,255,.2) 0 2%,transparent 8%),
+    radial-gradient(circle at 72% 65%,rgba(255,240,220,.16) 0 2%,transparent 10%);
+  filter:blur(1px);animation:slowPan 14s ease-in-out infinite alternate}
+@keyframes slowPan{to{transform:scale(1.08) translate3d(-1%,-2%,0)}}
 
-        .envelope-body {
-            position: absolute; width: 100%; height: 100%;
-            background-color: var(--paper-pink); background-image: var(--paper-texture);
-            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
-            border: 1px solid rgba(0,0,0,0.1);
-        }
+.bokeh{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bokeh i{
+  position:absolute;display:block;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.8),rgba(255,255,255,.08) 45%,transparent 70%);
+  filter:blur(4px);opacity:.55;animation:bokeh 9s ease-in-out infinite;
+}
+.bokeh i:nth-child(1){width:90px;height:90px;left:-20px;top:18%;animation-delay:-2s}
+.bokeh i:nth-child(2){width:55px;height:55px;right:8%;top:20%;animation-delay:-5s}
+.bokeh i:nth-child(3){width:115px;height:115px;right:-40px;top:42%;animation-delay:-7s}
+.bokeh i:nth-child(4){width:42px;height:42px;left:18%;top:53%;animation-delay:-4s}
+.bokeh i:nth-child(5){width:75px;height:75px;left:55%;top:31%;animation-delay:-1s}
+.bokeh i:nth-child(6){width:38px;height:38px;left:80%;top:61%;animation-delay:-6s}
+@keyframes bokeh{
+  0%,100%{transform:translate3d(0,0,0) scale(.9);opacity:.3}
+  50%{transform:translate3d(8px,-24px,0) scale(1.12);opacity:.75}
+}
 
-        /* Rabats réalistes (triangles croisés) */
-        .flap {
-            position: absolute; width: 0; height: 0;
-            border-style: solid; z-index: 2;
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
-            transition: transform 1s ease;
-        }
-        .flap.top {
-            border-width: 225px 160px 0 160px;
-            border-color: #c2185b transparent transparent transparent;
-            top: 0; transform-origin: top; z-index: 5;
-        }
-        .flap.left {
-            border-width: 225px 0 225px 160px;
-            border-color: transparent transparent transparent #ad1457;
-            left: 0;
-        }
-        .flap.right {
-            border-width: 225px 160px 225px 0;
-            border-color: transparent #ad1457 transparent transparent;
-            right: 0;
-        }
+/* Fine glitter field */
+.glitter{position:absolute;left:0;right:0;bottom:-2%;height:47%;z-index:2;pointer-events:none;
+  opacity:.9;overflow:hidden}
+.glitter:before,.glitter:after{
+  content:"";position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.95) 0 1px,transparent 1.8px),
+    radial-gradient(circle,rgba(255,231,214,.85) 0 1.4px,transparent 2px),
+    radial-gradient(circle,rgba(255,255,255,.65) 0 .8px,transparent 1.6px);
+  background-size:17px 19px,31px 27px,11px 13px;
+  mask-image:linear-gradient(to top,black 5%,rgba(0,0,0,.85) 38%,transparent 100%);
+  animation:sparkleMove 6s linear infinite;
+}
+.glitter:after{transform:translateY(-7px);opacity:.65;animation-duration:9s}
+@keyframes sparkleMove{to{transform:translateY(35px)}}
 
-        /* Sceau de cire Elenael */
-        .wax-seal {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%) translateZ(10px);
-            width: 120px; height: 120px;
-            background: var(--gold); border-radius: 50%;
-            border: 3px solid #fff; z-index: 10;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 10px rgba(0,0,0,0.2);
-        }
-        .wax-seal span { font-family: 'Pinyon Script'; color: #000; font-size: 2.2rem; line-height: 1; }
+/* ---------- FLOATING BALLOONS ---------- */
+.balloon{
+  position:absolute;z-index:3;width:88px;height:112px;border-radius:52% 48% 49% 51%;
+  background:
+    radial-gradient(circle at 29% 21%,rgba(255,255,255,.92) 0 4%,rgba(255,255,255,.25) 12%,transparent 22%),
+    radial-gradient(circle at 65% 78%,rgba(102,38,50,.3),transparent 42%),
+    linear-gradient(145deg,#f4c0b5,#c46e77 60%,#7f3f4e);
+  box-shadow:inset -13px -20px 28px rgba(68,20,30,.24),inset 12px 7px 18px rgba(255,255,255,.2),0 18px 30px rgba(57,15,27,.18);
+  filter:saturate(.92);
+  animation:balloonFloat 6s ease-in-out infinite;
+}
+.balloon:before{content:"";position:absolute;left:48%;bottom:-7px;border-left:5px solid transparent;border-right:5px solid transparent;border-top:10px solid #81424e}
+.balloon:after{content:"";position:absolute;left:50%;top:99%;height:145px;width:1px;background:linear-gradient(#ffffff88,transparent)}
+.balloon.a{left:-30px;top:12%;transform:rotate(-8deg)}
+.balloon.b{right:-28px;top:15%;transform:rotate(8deg);animation-delay:-2s}
+.balloon.c{left:39%;top:-6%;width:70px;height:90px;animation-delay:-4s}
+@keyframes balloonFloat{50%{transform:translateY(-14px) rotate(2deg)}}
 
-        /* --- DÉZOOM CAMÉRA --- */
-        .dezoom { transform: scale(0.1) translateZ(-2000px) rotateX(45deg); opacity: 0; }
+/* ---------- SCREEN / PAGES ---------- */
+.screen{
+  position:absolute;inset:0;z-index:10;
+  transition:transform .75s cubic-bezier(.77,0,.18,1),opacity .6s ease,filter .75s ease;
+}
+.screen.page-out-left{transform:translateX(-105%) rotateY(-8deg);opacity:0;filter:blur(5px)}
+.screen.page-out-right{transform:translateX(105%) rotateY(8deg);opacity:0;filter:blur(5px)}
+.screen.page-in-left{animation:pageInLeft .75s cubic-bezier(.77,0,.18,1)}
+.screen.page-in-right{animation:pageInRight .75s cubic-bezier(.77,0,.18,1)}
+@keyframes pageInLeft{from{transform:translateX(105%) rotateY(8deg);opacity:0;filter:blur(5px)}to{transform:none;opacity:1;filter:none}}
+@keyframes pageInRight{from{transform:translateX(-105%) rotateY(-8deg);opacity:0;filter:blur(5px)}to{transform:none;opacity:1;filter:none}}
 
-        /* --- INTERFACE INVITATION (APRES DÉZOOM) --- */
-        #ui-layer {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 50; display: none; justify-content: center; align-items: center;
-            background: url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2000') center/cover;
-        }
-        #ui-layer::before { content: ''; position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(15px); }
+.view{
+  position:absolute;inset:0;padding:24px 18px 30px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;overflow:auto;scrollbar-width:none;
+}
+.view::-webkit-scrollbar{display:none}
 
-        .glass-card {
-            position: relative; width: 90%; max-width: 400px;
-            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255,255,255,0.2);
-            padding: 40px 20px; text-align: center; color: white;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
-        }
-        .glass-card::after { content: ''; position: absolute; top: 15px; left: 15px; right: 15px; bottom: 15px; border: 1px solid; border-image: var(--gold) 1; }
+.topnav{
+  position:absolute;top:12px;right:13px;display:flex;gap:6px;z-index:30;
+}
+.topnav button{
+  border:1px solid rgba(255,255,255,.28);background:rgba(62,23,34,.2);color:#fff;
+  border-radius:999px;padding:7px 10px;font:500 10px "Montserrat",sans-serif;letter-spacing:.2px;
+  cursor:pointer;backdrop-filter:blur(8px);transition:.25s
+}
+.topnav button.active,.topnav button:hover{background:rgba(255,255,255,.23);transform:translateY(-1px)}
 
-        h2 { font-family: 'Pinyon Script', cursive; font-size: 4rem; color: var(--rose-gold); margin: 0; }
-        .royal-title { font-family: 'Cinzel', serif; letter-spacing: 4px; color: #d4a373; font-weight: 700; margin-bottom: 20px; }
+.small-brand{
+  font:500 9px "Montserrat",sans-serif;letter-spacing:3px;text-transform:uppercase;
+  opacity:.8;margin-bottom:8px
+}
 
-        /* Silhouettes */
-        .silhouettes { display: flex; justify-content: space-around; margin: 30px 0; }
-        .human { width: 90px; height: 180px; fill: #fff; filter: drop-shadow(0 0 10px #d4a373); }
+/* ---------- COVER / 3D ENVELOPE ---------- */
+#cover{z-index:40}
+.cover-copy{text-align:center;color:#61313d;line-height:1.55;letter-spacing:2px;font:500 12px "Montserrat",sans-serif}
+.cover-copy strong{font-family:"Great Vibes",cursive;font-size:32px;font-weight:400;letter-spacing:0}
+.envelope-wrap{perspective:1200px;margin-top:38px}
+.envelope{
+  width:min(320px,84vw);height:205px;position:relative;cursor:pointer;
+  transform-style:preserve-3d;filter:drop-shadow(0 26px 28px rgba(54,13,25,.28));
+  transition:transform 1s cubic-bezier(.2,.8,.2,1);
+}
+.envelope.open{transform:rotateX(8deg) translateY(12px)}
+.env-back,.env-front{
+  position:absolute;inset:0;border-radius:4px;overflow:hidden;
+  background:linear-gradient(145deg,#f7cfca,#db9098 65%,#b96573);
+}
+.env-back:after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent 48%,rgba(109,44,56,.25) 49%,transparent 51%),
+             linear-gradient(45deg,transparent 48%,rgba(109,44,56,.2) 49%,transparent 51%);
+}
+.env-front{clip-path:polygon(0 48%,50% 100%,100% 48%,100% 100%,0 100%);z-index:4}
+.env-flap{
+  position:absolute;left:0;top:0;width:100%;height:58%;z-index:5;
+  background:linear-gradient(160deg,#f9d5d0,#e7a2a7 75%,#cf7e8a);
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:50% 0%;transition:transform 1.1s cubic-bezier(.77,0,.18,1);
+}
+.envelope.open .env-flap{transform:rotateX(178deg)}
+.paper{
+  position:absolute;z-index:2;left:10%;top:12%;width:80%;height:82%;
+  background:linear-gradient(#fffaf4,#f7e6df);color:#633944;padding:26px 18px;
+  transform:translateY(26px);transition:transform 1s .12s cubic-bezier(.77,0,.18,1);
+  box-shadow:0 3px 10px rgba(65,20,30,.18);text-align:center
+}
+.envelope.open .paper{transform:translateY(-105px)}
+.paper .script{font:400 34px "Great Vibes",cursive}
+.seal{
+  position:absolute;z-index:9;left:50%;top:54%;translate:-50% -50%;width:68px;height:68px;border-radius:50%;
+  background:radial-gradient(circle at 30% 25%,#f5c5c4,#ae596a 70%,#713744);
+  border:3px solid #9e4d60;box-shadow:0 8px 16px rgba(61,14,27,.3);
+  display:grid;place-items:center;font:400 15px "Great Vibes",cursive;color:#ffeae4;
+  transition:opacity .5s,transform .7s;animation:sealPulse 2.2s infinite
+}
+.envelope.open .seal{opacity:0;transform:translate(-50%,-50%) scale(1.6) rotate(18deg)}
+@keyframes sealPulse{50%{box-shadow:0 0 0 8px rgba(255,235,225,.12),0 8px 16px rgba(61,14,27,.3)}}
 
-        .btn-royal {
-            background: var(--gold); border: none; padding: 15px 45px;
-            font-family: 'Cinzel'; font-weight: bold; cursor: pointer; letter-spacing: 2px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3); margin-top: 20px;
-        }
+/* ---------- HERO ---------- */
+.hero{
+  text-align:center;z-index:8;max-width:390px;width:100%;
+}
+.hero .pre{font:500 9px "Montserrat",sans-serif;letter-spacing:3px;text-transform:uppercase;opacity:.9}
+.hero-name{
+  font:400 clamp(60px,18vw,92px) "Great Vibes",cursive;line-height:.95;
+  color:#f7ded5;text-shadow:2px 4px 0 rgba(112,55,65,.55),0 12px 20px rgba(54,14,27,.2);
+  margin:8px 0 3px
+}
+.hero-last{font:500 clamp(19px,5vw,25px) "Cormorant Garamond",serif;letter-spacing:6px;text-transform:uppercase}
+.rule{width:95px;height:1px;background:linear-gradient(90deg,transparent,#fff8ee,transparent);margin:10px auto}
+.date{font-size:23px}.time{font:500 14px "Montserrat",sans-serif;letter-spacing:1px;margin-top:4px}
+.punctual{font:600 9px "Montserrat",sans-serif;letter-spacing:1.7px;text-transform:uppercase;margin-top:7px;opacity:.9}
 
-        /* Sablier Réel */
-        .hourglass-box { display: flex; align-items: center; justify-content: center; margin: 20px 0; }
-        .hg-svg { width: 40px; height: 40px; animation: flip 7s infinite ease-in-out; margin-right: 15px; }
-        .sand { fill: #fcf6ba; }
-        @keyframes flip { 0%, 85% { transform: rotate(0); } 95%, 100% { transform: rotate(180deg); } }
+.countdown{
+  width:min(355px,92vw);margin:18px auto 0;padding:13px 10px;border:1px solid rgba(255,255,255,.25);
+  border-radius:20px;background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(95,31,46,.15));
+  backdrop-filter:blur(11px);box-shadow:0 14px 35px rgba(59,14,28,.14)
+}
+.count-title{font:500 8px "Montserrat",sans-serif;letter-spacing:2.3px;text-transform:uppercase;opacity:.85;margin-bottom:8px}
+.timer{display:flex;justify-content:center;gap:7px}
+.tbox{min-width:62px;padding:6px 2px;border-right:1px solid rgba(255,255,255,.18)}
+.tbox:last-child{border:0}.num{font:600 25px "Montserrat",sans-serif}.lab{font:8px "Montserrat",sans-serif;text-transform:uppercase;opacity:.7}
 
-    </style>
+.actions{display:flex;gap:11px;justify-content:center;margin-top:15px;flex-wrap:wrap}
+.iconbtn{
+  width:43px;height:43px;border-radius:50%;border:1px solid rgba(255,255,255,.5);
+  background:rgba(255,255,255,.85);color:#8b4a58;display:grid;place-items:center;
+  cursor:pointer;box-shadow:0 8px 18px rgba(58,14,28,.2);transition:.25s
+}
+.iconbtn:hover{transform:translateY(-3px) scale(1.03)}
+.quote{max-width:330px;margin-top:13px;padding:12px 16px;text-align:center;border-top:1px solid rgba(255,255,255,.3);border-bottom:1px solid rgba(255,255,255,.3);font-size:15px;line-height:1.3;font-style:italic}
+
+/* ---------- CONTENT CARDS ---------- */
+.title{font:400 55px "Great Vibes",cursive;color:#fff5ed;text-shadow:2px 3px rgba(81,30,43,.35);margin:25px 0 9px}
+.card{
+  width:min(390px,94vw);padding:17px;border-radius:22px;margin:5px 0;
+  background:linear-gradient(145deg,rgba(255,250,246,.95),rgba(250,231,225,.91));
+  color:var(--ink);box-shadow:0 20px 45px rgba(56,13,27,.22);border:1px solid rgba(255,255,255,.55)
+}
+.card h3{text-align:center;font-size:21px;margin-bottom:8px}.card p{text-align:center;font-size:15px;line-height:1.35}
+.dress-card{border:8px solid #c8877d;background:linear-gradient(135deg,#fffaf4,#f5e3db);text-align:center;padding:33px 15px}
+.dress-script{font:400 44px "Great Vibes",cursive;color:#67404a}
+.dress-sub{font:600 9px "Montserrat",sans-serif;letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+.formline{display:flex;gap:7px;margin-top:8px}
+.field,.select,.textarea{
+  width:100%;border:1px solid #d7b2ad;background:#fffaf7;color:#5a353d;border-radius:11px;
+  padding:10px 11px;outline:none
+}
+.field:focus,.select:focus,.textarea:focus{border-color:#b76b72;box-shadow:0 0 0 3px #b76b7220}
+.btn{
+  border:0;border-radius:999px;padding:10px 15px;background:linear-gradient(135deg,#a85c6a,#7b3f4c);
+  color:#fff;cursor:pointer;white-space:nowrap;box-shadow:0 7px 15px rgba(91,31,45,.2)
+}
+.list{max-height:125px;overflow:auto;margin-top:9px}
+.item{padding:8px 10px;border-radius:10px;background:#f6e7e2;margin:5px 0;font-size:13px}
+.item strong{color:#7e4652}
+.back{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.4);margin-top:7px}
+
+/* ---------- MINI PAGE INDICATOR ---------- */
+.dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:50}
+.dot{width:5px;height:5px;border-radius:50%;background:#ffffff55;transition:.3s}.dot.active{width:17px;border-radius:5px;background:#fff}
+
+/* ---------- RESPONSIVE DESKTOP ---------- */
+@media(min-width:700px){
+  #app{width:390px;height:844px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    border-radius:30px;box-shadow:0 35px 100px rgba(0,0,0,.48)}
+}
+</style>
 </head>
+
 <body>
+<div id="app">
+  <div class="bg-glow"></div>
+  <div class="bokeh"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="glitter"></div>
+  <div class="balloon a"></div><div class="balloon b"></div><div class="balloon c"></div>
 
-    <div class="bird-system">
-        <div class="bird" style="animation-delay: 0s;"><svg viewBox="0 0 24 24"><path d="M21 5l-9 4-9-4 9 14z"/></svg></div>
-        <div class="bird" style="animation-delay: 1s;"><svg viewBox="0 0 24 24"><path d="M21 5l-9 4-9-4 9 14z"/></svg></div>
-        <div class="bird" style="animation-delay: 2s;"><svg viewBox="0 0 24 24"><path d="M21 5l-9 4-9-4 9 14z"/></svg></div>
-    </div>
-
-    <div class="stage" id="stage">
-        <div class="envelope-container" id="envelope" onclick="unfoldAll()">
-            <div class="envelope-body"></div>
-            <div class="flap top"></div>
-            <div class="flap left"></div>
-            <div class="flap right"></div>
-            
-            <div class="wax-seal">
-                <span>Elenael</span>
-                <span style="font-family:'Cinzel'; font-size:0.5rem; letter-spacing:3px;">EVENTS</span>
-            </div>
-            
-            <p style="position:absolute; bottom:-60px; width:100%; text-align:center; color:#d4a373; font-family:'Cinzel'; letter-spacing:5px; font-size:0.7rem;">Ouvrir l'Odyssée</p>
+  <!-- COVER -->
+  <section class="screen" id="cover">
+    <div class="view">
+      <div class="small-brand">Une invitation pour vous</div>
+      <div class="cover-copy">
+        <strong>Bénédicte Biuma</strong><br><br>
+        Touchez le sceau pour<br>ouvrir votre invitation
+      </div>
+      <div class="envelope-wrap">
+        <div class="envelope" id="envelope">
+          <div class="env-back"></div>
+          <div class="paper"><div class="script">Bénédicte</div><div style="margin-top:7px;font:500 9px Montserrat;letter-spacing:2px">5 SEPTEMBRE · 16H</div></div>
+          <div class="env-flap"></div>
+          <div class="env-front"></div>
+          <div class="seal">Bénédicte</div>
         </div>
+      </div>
     </div>
+  </section>
 
-    <!-- INTERFACE POST-ANIMATION -->
-    <div id="ui-layer">
-        <div class="glass-card">
-            <div class="royal-title">Anniversaire Royal</div>
-            <h2>Bonjour,</h2>
-            <div id="guest" style="font-family:'Cinzel'; font-size:1.2rem; margin:10px 0; color:#d4a373;">Précieux Invité</div>
+  <!-- MAIN APP -->
+  <section class="screen page-out-left" id="mainScreen" style="display:none">
+    <div class="view" id="view">
+      <div class="topnav">
+        <button data-page="0" onclick="go(0)">Page 1</button>
+        <button data-page="1" onclick="go(1)">Page 2</button>
+        <button data-page="2" onclick="go(2)">Invités</button>
+        <button data-page="3" onclick="go(3)">Livre d'or</button>
+      </div>
 
-            <p style="font-size: 0.9rem; line-height: 1.6;">Bénédicte Biuma vous convie le <br><b>5 Septembre à 16:00 Précise</b>.</p>
+      <!-- PAGE 1 -->
+      <article class="page" data-index="0">
+        <div class="hero">
+          <div class="pre">Une journée spéciale pour</div>
+          <div class="hero-name">Bénédicte</div>
+          <div class="hero-last">Biuma</div>
+          <div class="rule"></div>
+          <div class="date">5 septembre 2026</div>
+          <div class="time">16h00</div>
+          <div class="punctual">Le respect de l'heure, s'il vous plaît</div>
 
-            <div class="hourglass-box">
-                <svg class="hg-svg" viewBox="0 0 24 24">
-                    <path d="M6 2h12v2l-4 6 4 6v2H6v-2l4-6-4-6V2z" fill="none" stroke="white" stroke-width="1.2"/>
-                    <path class="sand" d="M7 3h10l-3.5 5.25L7 3z" style="transform-origin:bottom; animation:sand-out 7s infinite linear;"/>
-                    <path class="sand" d="M12 11.5l3.5 5.25H8.5L12 11.5z" style="transform-origin:bottom; animation:sand-in 7s infinite linear;"/>
-                </svg>
-                <span style="font-family:'Cinzel'; font-weight:bold;">PONCTUALITÉ SOUHAITÉE</span>
+          <div class="countdown">
+            <div class="count-title">Compte à rebours</div>
+            <div class="timer">
+              <div class="tbox"><div class="num" id="days">00</div><div class="lab">jours</div></div>
+              <div class="tbox"><div class="num" id="hours">00</div><div class="lab">heures</div></div>
+              <div class="tbox"><div class="num" id="minutes">00</div><div class="lab">minutes</div></div>
+              <div class="tbox"><div class="num" id="seconds">00</div><div class="lab">secondes</div></div>
             </div>
+          </div>
 
-            <div class="silhouettes">
-                <svg class="human" viewBox="0 0 100 200"><path d="M50 15c6 0 11 5 11 11s-5 11-11 11-11-5-11-11 5-11 11-11zm-15 35c2 0 15-2 15-2s13 2 15 2l8 40-5 5-8-30h-20l-8 30-5-5 8-40zm5 45h20l15 100h-50l15-100z"/></svg>
-                <svg class="human" viewBox="0 0 100 200"><path d="M50 15c6 0 11 5 11 11s-5 11-11 11-11-5-11-11 5-11 11-11zm-20 35h40l5 50-5 95h-30l-5-95 5-50z"/></svg>
-            </div>
-            
-            <div style="font-family:'Cinzel'; margin-bottom:10px;">CHIC EN BLANC</div>
-            
-            <button class="btn-royal" onclick="window.open('https://wa.me/243819794118')">Confirmer ma présence</button>
-            <p style="margin-top:30px; font-size:0.5rem; letter-spacing:5px; color:#888;">ELENAEL EVENTS</p>
+          <div class="actions">
+            <button class="iconbtn" onclick="openLocation()" aria-label="Localisation">⌖</button>
+            <button class="iconbtn" onclick="go(1)" aria-label="Dress code">♔</button>
+            <button class="iconbtn" onclick="go(2)" aria-label="Invités">♙</button>
+            <button class="iconbtn" onclick="go(3)" aria-label="Livre d'or">♡</button>
+          </div>
+
+          <div class="quote">« Que cette nouvelle année de vie t'apporte encore plus de lumière, de bonheur et de souvenirs précieux. »</div>
         </div>
+      </article>
+
+      <!-- PAGE 2 -->
+      <article class="page" data-index="1" style="display:none">
+        <div class="title">Dress code</div>
+        <div class="card dress-card">
+          <div class="dress-script">Chic en blanc</div>
+          <div class="dress-sub">Élégance · simplicité · lumière</div>
+        </div>
+        <div class="card">
+          <h3>🤍 Une consigne simple</h3>
+          <p>Nous vous invitons à venir dans une tenue <strong>chic et élégante en blanc</strong>, afin de créer une belle harmonie pour cette célébration.</p>
+        </div>
+        <button class="btn back" onclick="go(0)">← Retour</button>
+      </article>
+
+      <!-- PAGE 3 -->
+      <article class="page" data-index="2" style="display:none">
+        <div class="title">Invités</div>
+        <div class="card">
+          <h3>Votre présence</h3>
+          <p>Inscrivez votre nom et choisissez votre boisson.</p>
+          <div class="formline">
+            <input class="field" id="guestName" placeholder="Nom et prénom">
+            <button class="btn" onclick="addGuest()">Ajouter</button>
+          </div>
+          <div class="list" id="guestList"></div>
+        </div>
+
+        <div class="card">
+          <h3>🥂 Votre boisson</h3>
+          <select class="select" id="drink">
+            <option>Boisson locale</option>
+            <option>Cocktail / Mix</option>
+            <option>Soft</option>
+            <option>Eau</option>
+            <option>Je laisse le choix</option>
+          </select>
+          <div class="formline">
+            <input class="field" id="drinkName" placeholder="Votre nom">
+            <button class="btn" onclick="saveDrink()">Valider</button>
+          </div>
+          <div class="list" id="drinkList"></div>
+        </div>
+      </article>
+
+      <!-- PAGE 4 -->
+      <article class="page" data-index="3" style="display:none">
+        <div class="title">Livre d'or</div>
+        <div class="card">
+          <h3>Un mot pour Bénédicte 💌</h3>
+          <input class="field" id="messageName" placeholder="Votre nom">
+          <textarea class="textarea" id="messageText" rows="3" style="margin-top:8px" placeholder="Écrivez votre message..."></textarea>
+          <button class="btn" onclick="addMessage()">Publier mon message</button>
+        </div>
+        <div class="card list" id="messages"></div>
+      </article>
+
+      <div class="dots">
+        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
     </div>
+  </section>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script>
-        function unfoldAll() {
-            const env = document.getElementById('envelope');
-            const stage = document.getElementById('stage');
-            const ui = document.getElementById('ui-layer');
+<script>
+const EVENT_DATE = new Date("2026-09-05T16:00:00+01:00");
+const LOCATION_URL = "https://www.google.com/maps/search/?api=1&query=Kinshasa";
+let currentPage=0, touchX=0, touchY=0, opened=false;
 
-            // 1. Dépliage et dézoom
-            env.style.transform = "rotateX(180deg) scale(0.2) translateZ(-2000px)";
-            env.style.opacity = "0";
-            stage.style.transform = "scale(0.5) translateZ(-1000px)";
-            
-            // 2. Confettis
-            confetti({ particleCount: 200, spread: 80, origin: { y: 0.7 }, colors: ['#d4a373', '#ffffff', '#f48fb1'] });
+const cover=document.getElementById("cover");
+const main=document.getElementById("mainScreen");
+const envelope=document.getElementById("envelope");
 
-            // 3. Apparition UI
-            setTimeout(() => {
-                stage.style.display = 'none';
-                ui.style.display = 'flex';
-                setTimeout(() => { ui.style.opacity = '1'; }, 100);
-            }, 1800);
-        }
+envelope.addEventListener("click",()=>{
+  if(opened)return;
+  opened=true;
+  envelope.classList.add("open");
+  setTimeout(()=>{
+    cover.style.transition="transform 1s cubic-bezier(.77,0,.18,1),opacity .8s";
+    cover.style.transform="translateY(-100%)";
+    cover.style.opacity="0";
+    setTimeout(()=>{
+      cover.style.display="none";
+      main.style.display="block";
+      main.className="screen page-in-left";
+      showPage(0,false);
+    },650);
+  },900);
+});
 
-        const urlParams = new URLSearchParams(window.location.search);
-        document.getElementById('guest').innerText = urlParams.get('n') || "Précieux Invité";
-    </script>
+function showPage(index, direction=true){
+  const pages=[...document.querySelectorAll(".page")];
+  pages.forEach((p,i)=>p.style.display=i===index?"flex":"none");
+  document.querySelectorAll(".topnav button").forEach(b=>b.classList.toggle("active",+b.dataset.page===index));
+  document.querySelectorAll(".dot").forEach((d,i)=>d.classList.toggle("active",i===index));
+  currentPage=index;
+}
+
+function go(next){
+  const old=currentPage;
+  if(next===old)return;
+  const dir=next>old?"left":"right";
+  main.classList.remove("page-in-left","page-in-right");
+  main.classList.add(dir==="left"?"page-out-left":"page-out-right");
+  setTimeout(()=>{
+    showPage(next);
+    main.classList.remove("page-out-left","page-out-right");
+    void main.offsetWidth;
+    main.classList.add(dir==="left"?"page-in-left":"page-in-right");
+  },420);
+}
+
+/* Countdown */
+function countdown(){
+  let d=EVENT_DATE.getTime()-Date.now();
+  const title=document.querySelector(".count-title");
+  if(d<=0){
+    ["days","hours","minutes","seconds"].forEach(id=>document.getElementById(id).textContent="00");
+    title.textContent="C'est le grand jour ! ✨";
+    return;
+  }
+  const days=Math.floor(d/86400000); d%=86400000;
+  const hours=Math.floor(d/3600000); d%=3600000;
+  const minutes=Math.floor(d/60000); d%=60000;
+  const seconds=Math.floor(d/1000);
+  document.getElementById("days").textContent=String(days).padStart(2,"0");
+  document.getElementById("hours").textContent=String(hours).padStart(2,"0");
+  document.getElementById("minutes").textContent=String(minutes).padStart(2,"0");
+  document.getElementById("seconds").textContent=String(seconds).padStart(2,"0");
+}
+countdown();setInterval(countdown,1000);
+
+function openLocation(){window.open(LOCATION_URL,"_blank","noopener")}
+
+/* Guests */
+function addGuest(){
+  const input=document.getElementById("guestName"), name=input.value.trim();
+  if(!name)return;
+  const a=JSON.parse(localStorage.getItem("ben_guests")||"[]");
+  a.push(name);localStorage.setItem("ben_guests",JSON.stringify(a));input.value="";renderGuests();
+}
+function renderGuests(){
+  const a=JSON.parse(localStorage.getItem("ben_guests")||"[]");
+  document.getElementById("guestList").innerHTML=a.map((x,i)=>`<div class="item"><strong>#${i+1}</strong> ${safe(x)}</div>`).join("");
+}
+
+/* Drinks */
+function saveDrink(){
+  const name=document.getElementById("drinkName").value.trim();
+  if(!name)return;
+  const drink=document.getElementById("drink").value;
+  const a=JSON.parse(localStorage.getItem("ben_drinks")||"[]");
+  a.push({name,drink});localStorage.setItem("ben_drinks",JSON.stringify(a));
+  document.getElementById("drinkName").value="";renderDrinks();
+}
+function renderDrinks(){
+  const a=JSON.parse(localStorage.getItem("ben_drinks")||"[]");
+  document.getElementById("drinkList").innerHTML=a.map(x=>`<div class="item"><strong>${safe(x.name)}</strong> — ${safe(x.drink)}</div>`).join("");
+}
+
+/* Guestbook */
+function addMessage(){
+  const name=document.getElementById("messageName").value.trim();
+  const text=document.getElementById("messageText").value.trim();
+  if(!name||!text)return;
+  const a=JSON.parse(localStorage.getItem("ben_messages")||"[]");
+  a.unshift({name,text});localStorage.setItem("ben_messages",JSON.stringify(a));
+  document.getElementById("messageName").value="";
+  document.getElementById("messageText").value="";
+  renderMessages();
+}
+function renderMessages(){
+  const a=JSON.parse(localStorage.getItem("ben_messages")||"[]");
+  document.getElementById("messages").innerHTML=a.length?a.map(x=>`<div class="item"><strong>${safe(x.name)}</strong><br>${safe(x.text)}</div>`).join(""):"<p style='text-align:center'>Votre message apparaîtra ici. 💕</p>";
+}
+function safe(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+
+/* Swipe — horizontal page navigation */
+document.addEventListener("touchstart",e=>{
+  touchX=e.changedTouches[0].screenX;touchY=e.changedTouches[0].screenY;
+},{passive:true});
+document.addEventListener("touchend",e=>{
+  if(!opened)return;
+  const dx=e.changedTouches[0].screenX-touchX;
+  const dy=e.changedTouches[0].screenY-touchY;
+  if(Math.abs(dx)<65||Math.abs(dx)<Math.abs(dy)*1.25)return;
+  if(dx<0&&currentPage<3)go(currentPage+1);
+  if(dx>0&&currentPage>0)go(currentPage-1);
+},{passive:true});
+
+renderGuests();renderDrinks();renderMessages();
+</script>
 </body>
 </html>
