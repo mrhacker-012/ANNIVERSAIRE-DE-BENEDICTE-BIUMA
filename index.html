@@ -477,6 +477,42 @@ button,input,textarea,select{font:inherit}
 }
 
 
+
+/* ---------- NOM INVITÉ AUTOMATIQUE ---------- */
+.guest-avatar{
+  width:62px;height:62px;margin:5px auto 8px;border-radius:50%;
+  display:grid;place-items:center;
+  font:500 29px "Great Vibes",cursive;color:#fff4ed;
+  background:radial-gradient(circle at 30% 25%,#e9b5ad,#a65868 70%,#713642);
+  border:2px solid rgba(255,255,255,.65);
+  box-shadow:0 12px 28px rgba(77,24,38,.25),inset 0 2px 5px rgba(255,255,255,.3);
+  animation:avatarFloat 3.8s ease-in-out infinite;
+}
+@keyframes avatarFloat{50%{transform:translateY(-4px) rotate(2deg)}}
+.guest-ticket{
+  margin:10px 0;padding:11px 13px;border-radius:13px;
+  background:linear-gradient(135deg,rgba(183,107,114,.12),rgba(255,255,255,.55));
+  border:1px dashed #c89691;text-align:center
+}
+.guest-ticket span{
+  display:block;font:600 7px "Montserrat",sans-serif;letter-spacing:2px;color:#9b6b71
+}
+.guest-ticket strong{display:block;margin-top:3px;font-size:21px;color:#633b44}
+.guest-note{
+  display:flex;gap:8px;align-items:flex-start;margin-top:9px;padding:9px 10px;
+  border-radius:11px;background:#fff8f3;color:#76545a;font-size:11px;line-height:1.3
+}
+.guest-note>span{
+  flex:0 0 19px;width:19px;height:19px;border-radius:50%;display:grid;place-items:center;
+  background:#a9606c;color:#fff;font:700 10px "Montserrat",sans-serif
+}
+.author-chip{
+  display:flex;align-items:center;justify-content:center;gap:6px;margin:8px 0;
+  padding:8px 12px;border-radius:999px;background:#f7e9e4;border:1px solid #dfc1bb;
+  color:#7d5058;font:600 9px "Montserrat",sans-serif;letter-spacing:.4px
+}
+.whatsapp-btn{margin-top:10px}
+
 /* ---------- PREMIUM CONFETTI ---------- */
 #confetti-layer{
   position:fixed;inset:0;z-index:999;pointer-events:none;overflow:hidden;
@@ -664,23 +700,27 @@ button,input,textarea,select{font:inherit}
       <article class="page" data-index="2" style="display:none">
         <div class="title">Vos informations</div>
 
-        <div class="card guest-card">
-          <div class="card-kicker">CONFIRMATION</div>
-          <h3>Votre présence</h3>
+        <div class="card guest-card glass">
+          <div class="card-kicker">INVITATION PERSONNELLE</div>
+          <div class="guest-avatar" id="guestAvatar">B</div>
+          <h3>Bienvenue <span id="guestNameDisplay">à vous</span> ✨</h3>
           <p class="card-intro">
-            Inscrivez votre nom afin de confirmer votre présence à la célébration.
+            Votre invitation est nominative.<br>
+            Votre présence sera confirmée automatiquement avec votre nom.
           </p>
 
-          <div class="form-stack">
-            <input class="field" id="guestName" placeholder="Nom et prénom">
-            <button class="btn full" onclick="addGuest()">✓ Confirmer ma présence</button>
+          <div class="guest-ticket">
+            <span>INVITÉ(E)</span>
+            <strong id="guestTicketName">Invité(e)</strong>
           </div>
 
-          <div class="mini-heading">Invités enregistrés</div>
-          <div class="list guest-list" id="guestList"></div>
+          <div class="guest-note">
+            <span>✓</span>
+            <div>Votre nom est automatiquement associé à votre choix de boisson et à votre message du livre d'or.</div>
+          </div>
         </div>
 
-        <div class="card drink-card">
+        <div class="card drink-card glass">
           <div class="card-kicker">BAR &amp; MIX</div>
           <h3>Votre boisson</h3>
           <p class="card-intro">Choisissez votre préférence pour la soirée.</p>
@@ -739,10 +779,7 @@ button,input,textarea,select{font:inherit}
             </select>
           </div>
 
-          <div class="formline">
-            <input class="field" id="drinkName" placeholder="Votre nom">
-            <button class="btn" onclick="saveDrink()">Confirmer & WhatsApp</button>
-          </div>
+          <button class="btn full whatsapp-btn" onclick="saveDrink()">🥂 Confirmer ma boisson</button>
           <div class="list drink-list" id="drinkList"></div>
         </div>
       </article>
@@ -761,7 +798,7 @@ button,input,textarea,select{font:inherit}
 
         <div class="card message-card">
           <div class="card-kicker">UN PETIT MOT POUR ELLE</div>
-          <input class="field" id="messageName" placeholder="Votre nom">
+          <div class="author-chip">♡ <span id="messageAuthor">Invité(e)</span></div>
           <textarea class="textarea" id="messageText" rows="3"
             placeholder="Écrivez votre message pour Bénédicte..."></textarea>
           <button class="btn full" onclick="addMessage()">♡ Signer le livre d'or</button>
@@ -943,6 +980,24 @@ function renderGuests(){
 let selectedDrink="Mojito";
 const WHATSAPP_NUMBER="243819794118";
 
+const params=new URLSearchParams(window.location.search);
+const rawGuest=params.get("invite") || params.get("guest") || params.get("nom") || "";
+const guestName=decodeURIComponent(rawGuest).replace(/\+/g," ").trim() || "Invité(e)";
+
+function displayGuestName(){
+  const first=(guestName.trim().split(/\s+/)[0]||"B").charAt(0).toUpperCase();
+  const safeName=safe(guestName);
+  const avatar=document.getElementById("guestAvatar");
+  const display=document.getElementById("guestNameDisplay");
+  const ticket=document.getElementById("guestTicketName");
+  const author=document.getElementById("messageAuthor");
+  if(avatar)avatar.textContent=first;
+  if(display)display.innerHTML=safeName;
+  if(ticket)ticket.innerHTML=safeName;
+  if(author)author.textContent=guestName;
+}
+
+
 function selectDrink(button){
   document.querySelectorAll(".drink-option").forEach(b=>b.classList.remove("active"));
   button.classList.add("active");
@@ -957,55 +1012,48 @@ function whatsapp(message){
 }
 
 function saveDrink(){
-  const name=document.getElementById("drinkName").value.trim();
   const choice=document.getElementById("drinkChoice");
-  if(!name){
-    document.getElementById("drinkName").focus();
-    return;
-  }
   selectedDrink=choice.value;
 
   const a=JSON.parse(localStorage.getItem("ben_drinks")||"[]");
-  a.push({name,drink:selectedDrink});localStorage.setItem("ben_drinks",JSON.stringify(a));
+  a.push({name:guestName,drink:selectedDrink});localStorage.setItem("ben_drinks",JSON.stringify(a));
   renderDrinks();
 
   const message=
 `✨ *CONFIRMATION DE PRÉSENCE — BÉNÉDICTE BIUMA* ✨
 
-👤 *Invité :* ${name}
+👤 *Invité(e) :* ${guestName}
 📅 *Date :* 5 septembre 2026
 🕓 *Heure :* 16h00
 👗 *Dress code :* Chic en blanc
 🥂 *Boisson choisie :* ${selectedDrink}
 
-✅ Je confirme ma présence à la célébration de Bénédicte Biuma.
+✅ *Présence confirmée.*
 
 Merci 💕`;
   whatsapp(message);
 
-  document.getElementById("drinkName").value="";
-  launchConfetti(70);
+  launchConfetti(90);
 }
 
 function renderDrinks(){
-  const a=JSON.parse(localStorage.getItem("ben_drinks")||"[]");
+  const a=JSON.parse(localStorage.getItem("ben_drinks")||"[]").filter(x=>x.name===guestName);
   document.getElementById("drinkList").innerHTML=a.map(x=>`<div class="item"><strong>${safe(x.name)}</strong> — ${safe(x.drink)}</div>`).join("");
 }
 
 /* Guestbook */
 function addMessage(){
-  const name=document.getElementById("messageName").value.trim();
   const text=document.getElementById("messageText").value.trim();
-  if(!name||!text)return;
+  if(!text)return;
 
   const a=JSON.parse(localStorage.getItem("ben_messages")||"[]");
-  a.unshift({name,text});localStorage.setItem("ben_messages",JSON.stringify(a));
+  a.unshift({name:guestName,text});localStorage.setItem("ben_messages",JSON.stringify(a));
   renderMessages();
 
   const message=
 `💌 *LIVRE D'OR — BÉNÉDICTE BIUMA* 💌
 
-👤 *Invité :* ${name}
+👤 *Invité(e) :* ${guestName}
 
 📝 *Message :*
 ${text}
@@ -1013,9 +1061,8 @@ ${text}
 ✨ Message laissé depuis l'invitation digitale de Bénédicte Biuma.`;
   whatsapp(message);
 
-  document.getElementById("messageName").value="";
   document.getElementById("messageText").value="";
-  launchConfetti(90);
+  launchConfetti(100);
 }
 function renderMessages(){
   const a=JSON.parse(localStorage.getItem("ben_messages")||"[]");
@@ -1040,12 +1087,21 @@ document.addEventListener("touchend",e=>{
 },{passive:true});
 
 document.querySelectorAll(".card,.countdown").forEach(el=>el.classList.add("glass"));
-renderGuests();renderDrinks();renderMessages();
+displayGuestName();renderGuests();renderDrinks();renderMessages();
 
 document.querySelectorAll(".page").forEach(p=>{
   p.addEventListener("wheel",e=>e.stopPropagation(),{passive:true});
 });
 
+/*
+  GITHUB / VERCEL
+  Créez un lien personnel par invité :
+  https://votre-domaine.vercel.app/?invite=Jean%20Dupont
+  ou
+  https://votre-domaine.vercel.app/?guest=Jean%20Dupont
+
+  Le nom est lu automatiquement dans l'URL : aucune saisie manuelle.
+*/
 </script>
 </body>
 </html>
