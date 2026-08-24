@@ -235,6 +235,88 @@ button,input,textarea,select{font:inherit}
 .item strong{color:#7e4652}
 .back{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.4);margin-top:7px}
 
+
+/* ---------- PAGE 2 / 3 / 4 PREMIUM ---------- */
+.dress-card{
+  position:relative;overflow:hidden;padding:42px 18px 36px;
+  border:1px solid rgba(199,135,125,.8);
+  outline:7px solid rgba(255,250,244,.42);
+  box-shadow:0 22px 55px rgba(62,17,29,.28), inset 0 0 35px rgba(190,120,110,.12);
+}
+.dress-card:before,.dress-card:after{
+  content:"";position:absolute;width:95px;height:95px;border:1px solid rgba(183,107,114,.22);
+  border-radius:50%;
+}
+.dress-card:before{left:-55px;top:-55px}.dress-card:after{right:-55px;bottom:-55px}
+.dress-ornament{font-size:15px;color:#bd8c74;margin-bottom:3px}
+.dress-ornament.bottom{margin-top:8px;margin-bottom:0}
+.dress-script{font-size:50px;line-height:1.02}
+.dress-sub{font:600 8px "Montserrat",sans-serif;letter-spacing:3px;color:#98706d;margin-top:9px}
+.dress-note{position:relative;text-align:center;padding:17px 18px}
+.note-icon{font-size:22px;margin-bottom:3px}
+.dress-note h3{font-size:22px;margin-bottom:4px}
+.dress-note p{font-size:15px}
+.dress-tags{display:flex;justify-content:center;gap:5px;flex-wrap:wrap;margin-top:11px}
+.dress-tags span{
+  padding:5px 9px;border:1px solid #d9b9b2;border-radius:999px;
+  font:600 7px "Montserrat",sans-serif;letter-spacing:1.3px;color:#7d5058
+}
+.etiquette{
+  display:flex;align-items:center;justify-content:center;gap:7px;padding:9px 14px;
+  background:rgba(255,255,255,.1);box-shadow:none;color:#fff8f2;font-size:13px;
+}
+.etiquette-line{width:28px;height:1px;background:#fff8f255}
+
+.card-kicker{
+  text-align:center;font:600 7px "Montserrat",sans-serif;letter-spacing:2.4px;
+  color:#a16870;margin-bottom:3px
+}
+.card-intro{text-align:center!important;font-size:13px!important;color:#75555b;margin-bottom:10px}
+.form-stack{display:grid;gap:7px}
+.full{width:100%}
+.mini-heading{
+  margin:13px 0 6px;font:600 8px "Montserrat",sans-serif;letter-spacing:1.6px;
+  text-transform:uppercase;color:#95636a
+}
+.guest-card,.drink-card,.message-card,.messages-card{padding:15px}
+.guest-list,.drink-list{max-height:78px}
+.drink-options{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:9px 0}
+.drink-option{
+  border:1px solid #dfc4bf;background:#fffaf7;border-radius:13px;padding:8px;
+  display:flex;align-items:center;gap:7px;text-align:left;color:#633d45;cursor:pointer;
+  transition:.25s;min-width:0
+}
+.drink-option.active{
+  border-color:#a9606c;background:linear-gradient(145deg,#f8e9e4,#fffaf7);
+  box-shadow:0 0 0 2px #b76b7220
+}
+.drink-icon{font-size:20px}.drink-option strong{display:block;font-size:13px}
+.drink-option small{display:block;font:500 7px "Montserrat",sans-serif;color:#9b7277;margin-top:1px}
+.guestbook-intro{text-align:center;margin:-2px 0 9px;color:#fff9f4}
+.guestbook-symbol{
+  width:44px;height:44px;margin:0 auto 5px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid #ffffff66;background:#ffffff16;font-size:22px
+}
+.guestbook-intro p{font-size:14px;line-height:1.3}
+.message-card .textarea{resize:none}
+.messages-card{max-height:190px}
+.messages-head{
+  display:flex;justify-content:space-between;align-items:center;
+  font:600 9px "Montserrat",sans-serif;letter-spacing:1.2px;text-transform:uppercase;color:#8c5961
+}
+.message-count{
+  min-width:21px;height:21px;border-radius:50%;display:grid;place-items:center;
+  background:#8e4d5b;color:white;font-size:8px
+}
+.messages{max-height:112px;margin-top:8px}
+.message-item{
+  background:linear-gradient(145deg,#fffaf7,#f5e8e3);border-left:3px solid #b76b72;
+  padding:9px 10px;margin:6px 0;border-radius:5px 11px 11px 5px;font-size:13px;line-height:1.3;
+  box-shadow:0 4px 12px #6c354411
+}
+.message-item .author{font-weight:600;color:#7b4652;font-size:13px}
+.message-item .body{margin-top:3px;color:#684b50}
+
 /* ---------- MINI PAGE INDICATOR ---------- */
 .dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:50}
 .dot{width:5px;height:5px;border-radius:50%;background:#ffffff55;transition:.3s}.dot.active{width:17px;border-radius:5px;background:#fff}
@@ -319,57 +401,116 @@ button,input,textarea,select{font:inherit}
       <!-- PAGE 2 -->
       <article class="page" data-index="1" style="display:none">
         <div class="title">Dress code</div>
+
         <div class="card dress-card">
+          <div class="dress-ornament">✦</div>
           <div class="dress-script">Chic en blanc</div>
-          <div class="dress-sub">Élégance · simplicité · lumière</div>
+          <div class="dress-sub">WHITE · CHIC · ELEGANT</div>
+          <div class="dress-ornament bottom">✦</div>
         </div>
-        <div class="card">
-          <h3>🤍 Une consigne simple</h3>
-          <p>Nous vous invitons à venir dans une tenue <strong>chic et élégante en blanc</strong>, afin de créer une belle harmonie pour cette célébration.</p>
+
+        <div class="card dress-note">
+          <div class="note-icon">🤍</div>
+          <h3>Une soirée tout en blanc</h3>
+          <p>
+            Pour cette belle célébration, Bénédicte vous invite à adopter
+            une tenue <strong>chic, élégante et blanche</strong>.
+          </p>
+          <div class="dress-tags">
+            <span>CHIC</span>
+            <span>BLANC</span>
+            <span>ÉLÉGANT</span>
+          </div>
         </div>
-        <button class="btn back" onclick="go(0)">← Retour</button>
+
+        <div class="card etiquette">
+          <span class="etiquette-line"></span>
+          <span>Votre élégance fera partie du décor.</span>
+          <span class="etiquette-line"></span>
+        </div>
+
+        <button class="btn back" onclick="go(0)">← Retour à l'invitation</button>
       </article>
 
       <!-- PAGE 3 -->
       <article class="page" data-index="2" style="display:none">
-        <div class="title">Invités</div>
-        <div class="card">
+        <div class="title">Vos informations</div>
+
+        <div class="card guest-card">
+          <div class="card-kicker">CONFIRMATION</div>
           <h3>Votre présence</h3>
-          <p>Inscrivez votre nom et choisissez votre boisson.</p>
-          <div class="formline">
+          <p class="card-intro">
+            Inscrivez votre nom afin de confirmer votre présence à la célébration.
+          </p>
+
+          <div class="form-stack">
             <input class="field" id="guestName" placeholder="Nom et prénom">
-            <button class="btn" onclick="addGuest()">Ajouter</button>
+            <button class="btn full" onclick="addGuest()">✓ Confirmer ma présence</button>
           </div>
-          <div class="list" id="guestList"></div>
+
+          <div class="mini-heading">Invités enregistrés</div>
+          <div class="list guest-list" id="guestList"></div>
         </div>
 
-        <div class="card">
-          <h3>🥂 Votre boisson</h3>
-          <select class="select" id="drink">
-            <option>Boisson locale</option>
-            <option>Cocktail / Mix</option>
-            <option>Soft</option>
-            <option>Eau</option>
-            <option>Je laisse le choix</option>
-          </select>
+        <div class="card drink-card">
+          <div class="card-kicker">BAR &amp; MIX</div>
+          <h3>Votre boisson</h3>
+          <p class="card-intro">Choisissez votre préférence pour la soirée.</p>
+
+          <div class="drink-options">
+            <button class="drink-option active" data-drink="Boisson locale" onclick="selectDrink(this)">
+              <span class="drink-icon">🥂</span>
+              <span><strong>Locale</strong><small>Boisson locale</small></span>
+            </button>
+            <button class="drink-option" data-drink="Cocktail / Mix" onclick="selectDrink(this)">
+              <span class="drink-icon">🍹</span>
+              <span><strong>Mix</strong><small>Cocktail / Mix</small></span>
+            </button>
+            <button class="drink-option" data-drink="Soft" onclick="selectDrink(this)">
+              <span class="drink-icon">🥤</span>
+              <span><strong>Soft</strong><small>Sans alcool</small></span>
+            </button>
+            <button class="drink-option" data-drink="Eau" onclick="selectDrink(this)">
+              <span class="drink-icon">💧</span>
+              <span><strong>Eau</strong><small>Naturelle</small></span>
+            </button>
+          </div>
+
           <div class="formline">
             <input class="field" id="drinkName" placeholder="Votre nom">
             <button class="btn" onclick="saveDrink()">Valider</button>
           </div>
-          <div class="list" id="drinkList"></div>
+          <div class="list drink-list" id="drinkList"></div>
         </div>
       </article>
 
       <!-- PAGE 4 -->
       <article class="page" data-index="3" style="display:none">
         <div class="title">Livre d'or</div>
-        <div class="card">
-          <h3>Un mot pour Bénédicte 💌</h3>
-          <input class="field" id="messageName" placeholder="Votre nom">
-          <textarea class="textarea" id="messageText" rows="3" style="margin-top:8px" placeholder="Écrivez votre message..."></textarea>
-          <button class="btn" onclick="addMessage()">Publier mon message</button>
+
+        <div class="guestbook-intro">
+          <div class="guestbook-symbol">♡</div>
+          <p>
+            Un mot, un souvenir, une pensée…<br>
+            laissez votre empreinte pour Bénédicte.
+          </p>
         </div>
-        <div class="card list" id="messages"></div>
+
+        <div class="card message-card">
+          <div class="card-kicker">UN PETIT MOT POUR ELLE</div>
+          <input class="field" id="messageName" placeholder="Votre nom">
+          <textarea class="textarea" id="messageText" rows="3"
+            placeholder="Écrivez votre message pour Bénédicte..."></textarea>
+          <button class="btn full" onclick="addMessage()">♡ Signer le livre d'or</button>
+        </div>
+
+        <div class="card messages-card">
+          <div class="messages-head">
+            <span>Les mots des invités</span>
+            <span class="message-count" id="messageCount">0</span>
+          </div>
+          <div class="list messages" id="messages"></div>
+        </div>
       </article>
 
       <div class="dots">
@@ -462,12 +603,17 @@ function renderGuests(){
 }
 
 /* Drinks */
+let selectedDrink="Boisson locale";
+function selectDrink(button){
+  document.querySelectorAll(".drink-option").forEach(b=>b.classList.remove("active"));
+  button.classList.add("active");
+  selectedDrink=button.dataset.drink;
+}
 function saveDrink(){
   const name=document.getElementById("drinkName").value.trim();
   if(!name)return;
-  const drink=document.getElementById("drink").value;
   const a=JSON.parse(localStorage.getItem("ben_drinks")||"[]");
-  a.push({name,drink});localStorage.setItem("ben_drinks",JSON.stringify(a));
+  a.push({name,drink:selectedDrink});localStorage.setItem("ben_drinks",JSON.stringify(a));
   document.getElementById("drinkName").value="";renderDrinks();
 }
 function renderDrinks(){
@@ -488,7 +634,10 @@ function addMessage(){
 }
 function renderMessages(){
   const a=JSON.parse(localStorage.getItem("ben_messages")||"[]");
-  document.getElementById("messages").innerHTML=a.length?a.map(x=>`<div class="item"><strong>${safe(x.name)}</strong><br>${safe(x.text)}</div>`).join(""):"<p style='text-align:center'>Votre message apparaîtra ici. 💕</p>";
+  document.getElementById("messageCount").textContent=a.length;
+  document.getElementById("messages").innerHTML=a.length
+    ? a.map(x=>`<div class="message-item"><div class="author">${safe(x.name)}</div><div class="body">${safe(x.text)}</div></div>`).join("")
+    : "<p style='text-align:center;font-size:13px'>Votre message sera le premier. 💕</p>";
 }
 function safe(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
 
@@ -506,6 +655,11 @@ document.addEventListener("touchend",e=>{
 },{passive:true});
 
 renderGuests();renderDrinks();renderMessages();
+
+document.querySelectorAll(".page").forEach(p=>{
+  p.addEventListener("wheel",e=>e.stopPropagation(),{passive:true});
+});
+
 </script>
 </body>
 </html>
