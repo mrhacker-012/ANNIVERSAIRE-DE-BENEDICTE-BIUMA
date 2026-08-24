@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bénédicte Biuma - Royal Experience</title>
+    <!-- Polices : Pinyon Script (Signature Royale), Cinzel (Royal Moderne), Montserrat (Clarté) -->
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: linear-gradient(135deg, #d4a373 0%, #f9d5c3 50%, #d4a373 100%);
+            --accent: #d4a373;
+            --pink-light: #fff5f7;
+            --white-glass: rgba(255, 255, 255, 0.25);
+        }
+
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            background: #fff; overflow: hidden; color: #4a4a4a;
+        }
+
+        #particles-js { position: fixed; width: 100%; height: 100%; z-index: 1; background: var(--pink-light); }
+        #portal-flash { position: fixed; top:0; left:0; width:100%; height:100%; background: white; z-index: 100; opacity: 0; pointer-events: none; }
+
+        /* --- SYSTÈME DE SCÈNES MOTION --- */
+        .scene {
+            position: absolute; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 2; opacity: 0; pointer-events: none;
+            transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.8s ease;
+            transform: scale(0.8) translateY(50px);
+            text-align: center; padding: 20px; box-sizing: border-box;
+        }
+        .scene.active { opacity: 1; pointer-events: all; transform: scale(1) translateY(0); }
+        .scene.exit { opacity: 0; transform: scale(1.5) blur(20px); }
+
+        /* --- RÉVÉLATION DYNAMIQUE --- */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .active .reveal { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.3s; }
+        .delay-2 { transition-delay: 0.5s; }
+        .delay-3 { transition-delay: 0.7s; }
+
+        /* --- SCEAU ROYALE SIGNATURE --- */
+        .seal-wrap { position: relative; cursor: pointer; animation: floating 4s ease-in-out infinite; }
+        .seal-inner {
+            width: 170px; height: 170px; background: var(--gold); border-radius: 50%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border: 2px solid #fff; box-shadow: 0 20px 50px rgba(212, 163, 115, 0.4);
+            position: relative;
+        }
+        .agency-sig { font-family: 'Pinyon Script', cursive; font-size: 2.2rem; color: white; line-height: 0.8; margin-bottom: 5px; }
+        .agency-sub { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 5px; color: white; text-transform: uppercase; }
+
+        /* --- COMPTE À REBOURS ROYAL --- */
+        .countdown { display: flex; gap: 10px; margin: 20px 0; justify-content: center; }
+        .count-unit {
+            background: white; padding: 10px; border-radius: 12px; min-width: 60px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03); border: 1px solid #fce4ec;
+        }
+        .count-unit div { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--accent); font-weight: 700; }
+        .count-unit span { font-size: 0.5rem; text-transform: uppercase; color: #aaa; letter-spacing: 1px; }
+
+        /* --- SABLIER AVEC SABLE --- */
+        .hourglass-svg { width: 35px; height: 35px; fill: var(--accent); animation: hourglass-flip 7s infinite ease-in-out; margin-right: 12px; }
+        .sand-top { animation: sand-empty 7s infinite linear; transform-origin: center bottom; }
+        .sand-bottom { animation: sand-fill 7s infinite linear; transform-origin: center bottom; }
+        .sand-stream { animation: sand-stream 7s infinite linear; stroke: var(--accent); stroke-dasharray: 1, 4; }
+
+        @keyframes hourglass-flip { 0%, 85% { transform: rotate(0); } 95%, 100% { transform: rotate(180deg); } }
+        @keyframes sand-empty { 0% { transform: scaleY(1); } 80%, 100% { transform: scaleY(0); } }
+        @keyframes sand-fill { 0%, 20% { transform: scaleY(0); } 90%, 100% { transform: scaleY(1); } }
+        @keyframes sand-stream { 0% { stroke-dashoffset: 0; opacity: 0; } 5% { opacity: 1; } 80% { stroke-dashoffset: -20; opacity: 1; } 85%, 100% { opacity: 0; } }
+
+        /* --- CARTE DE LUXE --- */
+        .luxury-card {
+            background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(20px);
+            border: 1px solid white; border-radius: 45px;
+            padding: 50px 30px; width: 100%; max-width: 380px;
+            box-shadow: 0 30px 70px rgba(212, 163, 115, 0.2);
+        }
+
+        h2 { font-family: 'Pinyon Script', cursive; font-size: 3.8rem; color: var(--accent); margin: 0; font-weight: 400; }
+        .guest-name { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #555; margin: 5px 0; letter-spacing: 2px; }
+
+        .btn-royal {
+            background: var(--gold); border: none; color: white;
+            padding: 18px 50px; border-radius: 50px; cursor: pointer;
+            text-transform: uppercase; font-family: 'Cinzel'; font-size: 0.7rem;
+            margin-top: 30px; letter-spacing: 3px; font-weight: 700;
+            transition: 0.4s; box-shadow: 0 10px 25px rgba(212, 163, 115, 0.4);
+        }
+        .btn-royal:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(212, 163, 115, 0.5); }
+
+        .drink-option { flex: 1; padding: 12px; background: white; border: 1px solid #fce4ec; border-radius: 15px; cursor: pointer; font-size: 0.65rem; transition: 0.3s; font-weight: 600; }
+        .drink-option.selected { background: var(--accent); color: white; border-color: var(--accent); }
+
+        textarea { width:100%; height: 70px; background: white; border: 1px solid #fce4ec; border-radius: 20px; padding: 12px; margin-top: 15px; resize: none; font-family: inherit; }
+
+        @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+    <div id="portal-flash"></div>
+
+    <!-- SCÈNE 1 : ENTREE ROYALE -->
+    <section class="scene active" id="scene1">
+        <div class="seal-wrap" onclick="changeScene(2)">
+            <div class="seal-inner">
+                <span class="agency-sig">Elenael</span>
+                <span class="agency-sub">Events</span>
+            </div>
+        </div>
+        <p class="reveal delay-1" style="margin-top: 50px; letter-spacing: 6px; font-size: 10px; font-weight: 700; color: var(--accent); font-family: 'Cinzel';">ENTRER DANS L'ODYSSEE</p>
+    </section>
+
+    <!-- SCÈNE 2 : L'INVITATION -->
+    <section class="scene" id="scene2">
+        <div class="luxury-card">
+            <h2 class="reveal delay-1">Bonjour,</h2>
+            <div class="guest-name reveal delay-1" id="guestName">Précieux Invité</div>
+            
+            <div class="countdown reveal delay-2">
+                <div class="count-unit"><div id="days">00</div><span>Jours</span></div>
+                <div class="count-unit"><div id="hours">00</div><span>Hrs</span></div>
+                <div class="count-unit"><div id="mins">00</div><span>Min</span></div>
+                <div class="count-unit"><div id="secs">00</div><span>Sec</span></div>
+            </div>
+
+            <p class="reveal delay-2" style="font-size: 0.85rem; line-height: 1.6; color: #777; margin: 15px 0; font-weight: 400;">
+                Bénédicte Biuma vous convie à célébrer son anniversaire. Une expérience majestueuse signée par l'agence de luxe <b>Elenael Events</b>.
+            </p>
+
+            <div class="reveal delay-3" style="background: #fffafa; padding: 18px; border-radius: 25px; border: 1px solid var(--pink-soft);">
+                <div style="font-family: 'Cinzel'; font-size: 1.3rem; font-weight: 700; color: var(--accent); letter-spacing: 2px;">05 SEPTEMBRE</div>
+                <div style="font-size: 0.9rem; margin-top: 8px; font-weight: 600; display: flex; align-items: center; justify-content: center;">
+                    <svg class="hourglass-svg" viewBox="0 0 24 24">
+                        <path d="M6 2h12v2l-4 6 4 6v2H6v-2l4-6-4-6V2z" fill="none" stroke="currentColor" stroke-width="1.2"/>
+                        <path class="sand-top" d="M7 3h10l-3.5 5.25L7 3z" />
+                        <path class="sand-bottom" d="M12 11.5l3.5 5.25H8.5L12 11.5z" />
+                        <line class="sand-stream" x1="12" y1="9" x2="12" y2="12" stroke-width="1" />
+                    </svg>
+                    <span style="font-family: 'Cinzel';">16:00 PRÉCISE</span>
+                </div>
+            </div>
+
+            <button class="btn-royal reveal delay-3" onclick="changeScene(3)">Détails & RSVP</button>
+        </div>
+    </section>
+
+    <!-- SCÈNE 3 : RÉPONSE -->
+    <section class="scene" id="scene3">
+        <div class="luxury-card">
+            <h3 class="reveal delay-1" style="font-family: 'Cinzel'; font-size: 0.8rem; color: var(--accent); letter-spacing: 4px; font-weight: 700;">PROTOCOLE ROYAL</h3>
+            
+            <div class="reveal delay-1" style="margin-top: 20px;">
+                <p style="font-size: 0.6rem; color: #999; text-transform: uppercase; letter-spacing: 2px;">Dress Code</p>
+                <div style="font-family: 'Cinzel'; font-size: 1.1rem; font-weight: 700; letter-spacing: 2px;">👔 CHIC EN BLANC 👗</div>
+            </div>
+
+            <div class="reveal delay-2" style="margin-top: 25px;">
+                <div style="display:flex; gap:8px;">
+                    <div class="drink-option" onclick="setDrink(this, 'Champagne')">Champagne</div>
+                    <div class="drink-option" onclick="setDrink(this, 'Cocktail')">Cocktail</div>
+                    <div class="drink-option" onclick="setDrink(this, 'Soft')">Soft</div>
+                </div>
+            </div>
+
+            <textarea class="reveal delay-3" id="guestbook" placeholder="Livre d'or : Votre signature..."></textarea>
+
+            <button class="btn-royal reveal delay-3" onclick="confirmRSVP()">Confirmer</button>
+            <p style="margin-top: 20px; font-size: 0.5rem; letter-spacing: 4px; color: #bbb; font-family: 'Cinzel';">Elenael Events • Luxury Agency</p>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        function changeScene(nextId) {
+            const flash = document.getElementById('portal-flash');
+            flash.style.opacity = '1';
+            setTimeout(() => {
+                document.querySelector('.scene.active').classList.remove('active');
+                document.getElementById('scene' + nextId).classList.add('active');
+                flash.style.opacity = '0';
+            }, 600);
+        }
+
+        function updateCount() {
+            const target = new Date("September 5, 2025 16:00:00").getTime();
+            const now = new Date().getTime();
+            const diff = target - now;
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById("days").innerText = d < 10 ? "0"+d : d;
+            document.getElementById("hours").innerText = h < 10 ? "0"+h : h;
+            document.getElementById("mins").innerText = m < 10 ? "0"+m : m;
+            document.getElementById("secs").innerText = s < 10 ? "0"+s : s;
+        }
+        setInterval(updateCount, 1000); updateCount();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById('guestName').innerText = urlParams.get('n') || "Précieux Invité";
+
+        let drinkChoice = "";
+        function setDrink(btn, choice) {
+            document.querySelectorAll('.drink-option').forEach(el => el.classList.remove('selected'));
+            btn.classList.add('selected');
+            drinkChoice = choice;
+        }
+
+        function confirmRSVP() {
+            const msg = document.getElementById('guestbook').value;
+            const guest = document.getElementById('guestName').innerText;
+            window.open(`https://wa.me/243819794118?text=${encodeURIComponent("Bonjour Bénédicte ! C'est "+guest+".\nJe confirme ma présence royale pour ton anniversaire.\n\nChoix boisson : "+drinkChoice+"\nSignature : "+msg)}`, '_blank');
+        }
+
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 45 },
+                "color": { "value": ["#d4a373", "#ffffff"] },
+                "opacity": { "value": 0.4 },
+                "size": { "value": 2.5 },
+                "move": { "enable": true, "speed": 1, "direction": "bottom", "out_mode": "out" }
+            }
+        });
+    </script>
+</body>
+</html>
