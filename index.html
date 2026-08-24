@@ -281,6 +281,13 @@ button,input,textarea,select{font:inherit}
 .guest-card,.drink-card,.message-card,.messages-card{padding:15px}
 .guest-list,.drink-list{max-height:78px}
 .drink-options{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:9px 0}
+.drink-select-wrap{position:relative;margin:9px 0}
+.drink-select{
+  appearance:auto;
+  background:linear-gradient(145deg,#fffaf7,#f7ebe6);
+  font-weight:500;cursor:pointer;
+}
+.drink-select:focus{transform:translateY(-1px)}
 .drink-option{
   border:1px solid #dfc4bf;background:#fffaf7;border-radius:13px;padding:8px;
   display:flex;align-items:center;gap:7px;text-align:left;color:#633d45;cursor:pointer;
@@ -469,6 +476,29 @@ button,input,textarea,select{font:inherit}
   *,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
 
+
+/* ---------- PREMIUM CONFETTI ---------- */
+#confetti-layer{
+  position:fixed;inset:0;z-index:999;pointer-events:none;overflow:hidden;
+}
+.confetti{
+  position:absolute;top:-28px;left:0;width:9px;height:15px;
+  border-radius:2px;opacity:0;
+  animation:confettiFall var(--dur) cubic-bezier(.12,.66,.25,1) forwards;
+  animation-delay:var(--delay);
+  transform:translate3d(0,0,0) rotate(0deg);
+  box-shadow:0 2px 5px rgba(50,10,20,.16);
+}
+.confetti.circle{border-radius:50%;width:7px;height:7px}
+.confetti.ribbon{width:5px;height:23px;border-radius:3px}
+@keyframes confettiFall{
+  0%{opacity:0;transform:translate3d(0,-30px,0) rotate(0deg) scale(.6)}
+  8%{opacity:1}
+  35%{transform:translate3d(var(--x1),32vh,0) rotate(210deg) scale(1)}
+  70%{transform:translate3d(var(--x2),70vh,0) rotate(520deg) scale(.92)}
+  100%{opacity:0;transform:translate3d(var(--x3),112vh,0) rotate(800deg) scale(.75)}
+}
+
 /* ---------- MINI PAGE INDICATOR ---------- */
 .dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:50}
 .dot{width:5px;height:5px;border-radius:50%;background:#ffffff55;transition:.3s}.dot.active{width:17px;border-radius:5px;background:#fff}
@@ -655,28 +685,63 @@ button,input,textarea,select{font:inherit}
           <h3>Votre boisson</h3>
           <p class="card-intro">Choisissez votre préférence pour la soirée.</p>
 
-          <div class="drink-options">
-            <button class="drink-option active" data-drink="Boisson locale" onclick="selectDrink(this)">
-              <span class="drink-icon">🥂</span>
-              <span><strong>Locale</strong><small>Boisson locale</small></span>
-            </button>
-            <button class="drink-option" data-drink="Cocktail / Mix" onclick="selectDrink(this)">
-              <span class="drink-icon">🍹</span>
-              <span><strong>Mix</strong><small>Cocktail / Mix</small></span>
-            </button>
-            <button class="drink-option" data-drink="Soft" onclick="selectDrink(this)">
-              <span class="drink-icon">🥤</span>
-              <span><strong>Soft</strong><small>Sans alcool</small></span>
-            </button>
-            <button class="drink-option" data-drink="Eau" onclick="selectDrink(this)">
-              <span class="drink-icon">💧</span>
-              <span><strong>Eau</strong><small>Naturelle</small></span>
-            </button>
+          <div class="drink-select-wrap">
+            <select class="select drink-select" id="drinkChoice" onchange="selectedDrink=this.value">
+              <optgroup label="🍹 Cocktails & Mix">
+                <option value="Mojito">Mojito</option>
+                <option value="Margarita">Margarita</option>
+                <option value="Piña Colada">Piña Colada</option>
+                <option value="Sex on the Beach">Sex on the Beach</option>
+                <option value="Tequila Sunrise">Tequila Sunrise</option>
+                <option value="Moscow Mule">Moscow Mule</option>
+                <option value="Daiquiri">Daiquiri</option>
+                <option value="Cuba Libre">Cuba Libre</option>
+                <option value="Blue Lagoon">Blue Lagoon</option>
+                <option value="Mai Tai">Mai Tai</option>
+                <option value="Long Island Iced Tea">Long Island Iced Tea</option>
+                <option value="Cocktail sans alcool">Cocktail sans alcool</option>
+                <option value="Mocktail passion">Mocktail passion</option>
+                <option value="Mocktail tropical">Mocktail tropical</option>
+              </optgroup>
+              <optgroup label="🇨🇩 Boissons locales / RDC">
+                <option value="Tangawisi">Tangawisi</option>
+                <option value="Jus de maracuja">Jus de maracuja</option>
+                <option value="Jus de gingembre">Jus de gingembre</option>
+                <option value="Jus d'ananas">Jus d'ananas</option>
+                <option value="Jus de bissap">Jus de bissap</option>
+                <option value="Jus de baobab">Jus de baobab</option>
+                <option value="Jus de mangue">Jus de mangue</option>
+                <option value="Jus de papaye">Jus de papaye</option>
+                <option value="Jus de citron">Jus de citron</option>
+                <option value="Limonade maison">Limonade maison</option>
+                <option value="Thé glacé maison">Thé glacé maison</option>
+              </optgroup>
+              <optgroup label="🥤 Soft & rafraîchissements">
+                <option value="Coca-Cola">Coca-Cola</option>
+                <option value="Fanta">Fanta</option>
+                <option value="Sprite">Sprite</option>
+                <option value="Schweppes">Schweppes</option>
+                <option value="Tonic">Tonic</option>
+                <option value="Ginger Ale">Ginger Ale</option>
+                <option value="Red Bull">Red Bull</option>
+                <option value="Eau plate">Eau plate</option>
+                <option value="Eau gazeuse">Eau gazeuse</option>
+                <option value="Je laisse le choix">Je laisse le choix</option>
+              </optgroup>
+              <optgroup label="🍾 Autres">
+                <option value="Vin">Vin</option>
+                <option value="Champagne">Champagne</option>
+                <option value="Bière">Bière</option>
+                <option value="Spiritueux / whisky">Spiritueux / whisky</option>
+                <option value="Spiritueux / cognac">Spiritueux / cognac</option>
+                <option value="Autre préférence">Autre préférence</option>
+              </optgroup>
+            </select>
           </div>
 
           <div class="formline">
             <input class="field" id="drinkName" placeholder="Votre nom">
-            <button class="btn" onclick="saveDrink()">Valider</button>
+            <button class="btn" onclick="saveDrink()">Confirmer & WhatsApp</button>
           </div>
           <div class="list drink-list" id="drinkList"></div>
         </div>
@@ -717,6 +782,7 @@ button,input,textarea,select{font:inherit}
     </div>
   </section>
 </div>
+<div id="confetti-layer"></div>
 
 <script>
 const EVENT_DATE = new Date("2026-09-05T16:00:00+01:00");
@@ -766,6 +832,34 @@ function go(next){
   },420);
 }
 
+
+
+/* ---------- CONFETTI EFFECT ENGINE ---------- */
+function launchConfetti(amount=80){
+  const layer=document.getElementById("confetti-layer");
+  if(!layer)return;
+  const shapes=["","circle","ribbon"];
+  const fragments=[];
+  for(let i=0;i<amount;i++){
+    const el=document.createElement("i");
+    el.className="confetti "+shapes[i%shapes.length];
+    el.style.left=(5+Math.random()*90)+"vw";
+    el.style.setProperty("--x1",(Math.random()*180-90)+"px");
+    el.style.setProperty("--x2",(Math.random()*280-140)+"px");
+    el.style.setProperty("--x3",(Math.random()*420-210)+"px");
+    el.style.setProperty("--dur",(2.6+Math.random()*2.2)+"s");
+    el.style.setProperty("--delay",(Math.random()*.45)+"s");
+    el.style.background=[
+      "linear-gradient(135deg,#fff7ed,#e8b19f)",
+      "linear-gradient(135deg,#f7d48d,#c98463)",
+      "linear-gradient(135deg,#fff,#d68b92)",
+      "linear-gradient(135deg,#f3b4b8,#8d4858)",
+      "linear-gradient(135deg,#ffe6d4,#ad6b79)"
+    ][i%5];
+    layer.appendChild(el);fragments.push(el);
+  }
+  setTimeout(()=>fragments.forEach(x=>x.remove()),5200);
+}
 
 /* ---------- MOTION DESIGN ENGINE ---------- */
 const app=document.getElementById("app");
@@ -825,6 +919,20 @@ function addGuest(){
   if(!name)return;
   const a=JSON.parse(localStorage.getItem("ben_guests")||"[]");
   a.push(name);localStorage.setItem("ben_guests",JSON.stringify(a));input.value="";renderGuests();
+
+  const message=
+`✨ *PRÉSENCE — BÉNÉDICTE BIUMA* ✨
+
+👤 *Invité :* ${name}
+📅 *5 septembre 2026*
+🕓 *16h00*
+👗 *Dress code :* Chic en blanc
+
+✅ Cette personne confirme sa présence.
+
+💌 Invitation digitale Bénédicte Biuma`;
+  whatsapp(message);
+  launchConfetti(55);
 }
 function renderGuests(){
   const a=JSON.parse(localStorage.getItem("ben_guests")||"[]");
@@ -832,19 +940,53 @@ function renderGuests(){
 }
 
 /* Drinks */
-let selectedDrink="Boisson locale";
+let selectedDrink="Mojito";
+const WHATSAPP_NUMBER="243819794118";
+
 function selectDrink(button){
   document.querySelectorAll(".drink-option").forEach(b=>b.classList.remove("active"));
   button.classList.add("active");
   selectedDrink=button.dataset.drink;
+  const select=document.getElementById("drinkChoice");
+  if(select)select.value=selectedDrink;
 }
+
+function whatsapp(message){
+  const url="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message);
+  window.open(url,"_blank","noopener");
+}
+
 function saveDrink(){
   const name=document.getElementById("drinkName").value.trim();
-  if(!name)return;
+  const choice=document.getElementById("drinkChoice");
+  if(!name){
+    document.getElementById("drinkName").focus();
+    return;
+  }
+  selectedDrink=choice.value;
+
   const a=JSON.parse(localStorage.getItem("ben_drinks")||"[]");
   a.push({name,drink:selectedDrink});localStorage.setItem("ben_drinks",JSON.stringify(a));
-  document.getElementById("drinkName").value="";renderDrinks();
+  renderDrinks();
+
+  const message=
+`✨ *CONFIRMATION DE PRÉSENCE — BÉNÉDICTE BIUMA* ✨
+
+👤 *Invité :* ${name}
+📅 *Date :* 5 septembre 2026
+🕓 *Heure :* 16h00
+👗 *Dress code :* Chic en blanc
+🥂 *Boisson choisie :* ${selectedDrink}
+
+✅ Je confirme ma présence à la célébration de Bénédicte Biuma.
+
+Merci 💕`;
+  whatsapp(message);
+
+  document.getElementById("drinkName").value="";
+  launchConfetti(70);
 }
+
 function renderDrinks(){
   const a=JSON.parse(localStorage.getItem("ben_drinks")||"[]");
   document.getElementById("drinkList").innerHTML=a.map(x=>`<div class="item"><strong>${safe(x.name)}</strong> — ${safe(x.drink)}</div>`).join("");
@@ -855,11 +997,25 @@ function addMessage(){
   const name=document.getElementById("messageName").value.trim();
   const text=document.getElementById("messageText").value.trim();
   if(!name||!text)return;
+
   const a=JSON.parse(localStorage.getItem("ben_messages")||"[]");
   a.unshift({name,text});localStorage.setItem("ben_messages",JSON.stringify(a));
+  renderMessages();
+
+  const message=
+`💌 *LIVRE D'OR — BÉNÉDICTE BIUMA* 💌
+
+👤 *Invité :* ${name}
+
+📝 *Message :*
+${text}
+
+✨ Message laissé depuis l'invitation digitale de Bénédicte Biuma.`;
+  whatsapp(message);
+
   document.getElementById("messageName").value="";
   document.getElementById("messageText").value="";
-  renderMessages();
+  launchConfetti(90);
 }
 function renderMessages(){
   const a=JSON.parse(localStorage.getItem("ben_messages")||"[]");
