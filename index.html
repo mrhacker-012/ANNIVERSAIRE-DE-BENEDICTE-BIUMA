@@ -695,7 +695,7 @@ button,input,textarea,select{font:inherit}
           </div>
 
           <div class="actions">
-          <button class="iconbtn" onclick="go(3)" aria-label="Livre d'or">♡</button>
+          <button class="iconbtn" onclick="go(4)" aria-label="Livre d'or">♡</button>
           <audio id="esiliAudio" preload="auto" autoplay loop>
             <source src="esili.mp3" type="audio/mpeg">
           </audio>
@@ -773,7 +773,7 @@ button,input,textarea,select{font:inherit}
       </div>
 
       <div class="dots">
-        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
       </div>
     </div>
   </section>
@@ -1110,7 +1110,7 @@ document.addEventListener("touchend",e=>{
   const dx=e.changedTouches[0].screenX-touchX;
   const dy=e.changedTouches[0].screenY-touchY;
   if(Math.abs(dx)<65||Math.abs(dx)<Math.abs(dy)*1.25)return;
-  if(dx<0&&currentPage<3)go(currentPage+1);
+  if(dx<0&&currentPage<4)go(currentPage+1);
   if(dx>0&&currentPage>0)go(currentPage-1);
 },{passive:true});
 
@@ -1136,7 +1136,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 </script>
 
       <!-- PAGE 4 / LIVRE D'OR -->
-      <article class="page" data-index="3" style="display:none">
+      <article class="page" data-index="4" style="display:none">
         <div class="title">Livre d'or</div>
 
         <div class="card guest-card glass">
