@@ -32,7 +32,7 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
   background:radial-gradient(circle at 50% 52%,transparent 30%,rgba(47,14,25,.23) 100%);
 }
 
-/* ---------- DÉCOR RÉALISTE DE 7H17 ---------- */
+/* ---------- DÉCOR RÉALISTE ---------- */
 .bg-glow{position:absolute;inset:-15%;z-index:0;pointer-events:none;
   background:
     radial-gradient(circle at 12% 35%,rgba(255,255,255,.24) 0 2%,transparent 7%),
@@ -45,12 +45,12 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
 .bokeh i{
   position:absolute;display:block;border-radius:50%;
   background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.8),rgba(255,255,255,.08) 45%,transparent 70%);
-  filter:blur(4px);opacity:.55;animation:bokeh 9s ease-in-out infinite;
+  filter:blur(4px);opacity:.55;animation:bokehAnim 9s ease-in-out infinite;
 }
 .bokeh i:nth-child(1){width:90px;height:90px;left:-20px;top:18%;animation-delay:-2s}
 .bokeh i:nth-child(2){width:55px;height:55px;right:8%;top:20%;animation-delay:-5s}
 .bokeh i:nth-child(3){width:115px;height:115px;right:-40px;top:42%;animation-delay:-7s}
-@keyframes bokeh{0%,100%{transform:translate3d(0,0,0) scale(.9);opacity:.3} 50%{transform:translate3d(8px,-24px,0) scale(1.12);opacity:.75}}
+@keyframes bokehAnim{0%,100%{transform:translate3d(0,0,0) scale(.9);opacity:.3} 50%{transform:translate3d(8px,-24px,0) scale(1.12);opacity:.75}}
 
 .glitter{position:absolute;left:0;right:0;bottom:-2%;height:47%;z-index:2;pointer-events:none;opacity:.9;overflow:hidden}
 .glitter:before{
@@ -60,6 +60,7 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
 }
 @keyframes sparkleMove{to{transform:translateY(35px)}}
 
+/* ---------- BALLONS D'AIR (PLUS NOMBREUX) ---------- */
 .balloon{
   position:absolute;z-index:3;width:88px;height:112px;border-radius:52% 48% 49% 51%;
   background: linear-gradient(145deg,#f4c0b5,#c46e77 60%,#7f3f4e);
@@ -67,11 +68,16 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
   animation:balloonFloat 6s ease-in-out infinite;
 }
 .balloon:after{content:"";position:absolute;left:50%;top:99%;height:145px;width:1px;background:linear-gradient(#ffffff88,transparent)}
+
 .balloon.a{left:5%;top:12%;transform:rotate(-8deg)}
 .balloon.b{right:5%;top:15%;transform:rotate(8deg);animation-delay:-2s}
-@keyframes balloonFloat{50%{transform:translateY(-14px) rotate(2deg)}}
+.balloon.c{left:15%;top:40%;width:70px;height:90px;animation-delay:-4s; opacity:0.6}
+.balloon.d{right:15%;top:45%;width:65px;height:85px;animation-delay:-1s; opacity:0.7}
+.balloon.e{left:45%;top:5%;width:75px;height:95px;animation-delay:-3s; opacity:0.8}
 
-/* ---------- ENVELOPPE & AILES BLANCHES ---------- */
+@keyframes balloonFloat{50%{transform:translateY(-15px) rotate(2deg)}}
+
+/* ---------- ENVELOPPE & AILES ---------- */
 .envelope-container { position: relative; z-index: 10; display: flex; justify-content: center; align-items: center; margin-bottom: 25px;}
 .wings { position: absolute; width: 420px; height: 150px; pointer-events: none; display: flex; justify-content: space-between; align-items: center; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: -1;}
 .wing { width: 165px; height: 100px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(2px); border-radius: 100% 0% 100% 0%; box-shadow: 0 0 25px rgba(255, 255, 255, 0.5); animation: flap 2.5s ease-in-out infinite;}
@@ -92,7 +98,7 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
 .screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; opacity: 0; visibility: hidden; transition: opacity 0.6s ease; z-index: 10;}
 .screen.active { opacity: 1; visibility: visible; }
 
-/* ---------- TYPOGRAPHIE ---------- */
+/* ---------- TYPO ---------- */
 .hero-name { font: 400 clamp(60px, 15vw, 92px) "Great Vibes", cursive; line-height: 0.95; color: #f7ded5; text-shadow: 2px 4px 0 rgba(112,55,65,0.55); margin: 0; }
 .hero-last { font: 500 25px "Cormorant Garamond", serif; letter-spacing: 6px; text-transform: uppercase; margin-top: -10px; margin-bottom: 20px; }
 
@@ -103,8 +109,14 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
 .btn { border: 0; border-radius: 50px; padding: 14px 22px; background: linear-gradient(135deg,#a85c6a,#7b3f4c); color: #fff; cursor: pointer; width: 100%; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-top: 15px; }
 .btn-back { background: none; border: 1px solid rgba(255,255,255,0.4); color: white; width: auto; padding: 8px 20px; font-size: 10px; margin-top: 20px; opacity: 0.7; cursor: pointer;}
 
-/* ---------- SIGNATURE ELENAEL SHIMMER ---------- */
-.elenael-signature { text-align: center; opacity: 1; margin-top: auto; padding-bottom: 25px; z-index: 100;}
+/* ---------- SIGNATURE REMONTÉE ---------- */
+.elenael-signature { 
+    text-align: center; 
+    opacity: 1; 
+    margin-top: auto; 
+    margin-bottom: 60px; 
+    z-index: 100;
+}
 .sig-conception { font: 500 9px Montserrat; letter-spacing: 2px; text-transform: uppercase; color: white; margin-bottom: 2px; }
 .sig-brand { 
     font-family: "Great Vibes", cursive; font-size: 28px; 
@@ -126,11 +138,15 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
     <div class="bg-glow"></div>
     <div class="bokeh"><i></i><i></i><i></i></div>
     <div class="glitter"></div>
+    
+    <!-- BALLONS SUPPLÉMENTAIRES -->
     <div class="balloon a"></div><div class="balloon b"></div>
+    <div class="balloon c"></div><div class="balloon d"></div>
+    <div class="balloon e"></div>
 
     <!-- PAGE 1: COVER -->
     <section class="screen active" id="sc1">
-        <div style="font:600 11px Montserrat; letter-spacing:3px; color:white; margin-bottom:45px; text-transform:uppercase; position:relative; z-index:20;" id="coverWelcome">INVITATION POUR VOUS</div>
+        <div style="font:600 12px Montserrat; letter-spacing:4px; color:white; margin-bottom:40px; text-transform:uppercase; position:relative; z-index:20;" id="coverWelcome">INVITATION POUR VOUS</div>
         <div class="envelope-container">
             <div class="wings"><div class="wing left"></div><div class="wing right"></div></div>
             <div class="envelope" id="envelope">
@@ -156,7 +172,6 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
             <div class="hero-name">Bénédicte</div>
             <div class="hero-last">Biuma</div>
             <div style="font-size:18px; margin-bottom: 5px; color: white;">5 Septembre 2026 • 16h00</div>
-            <!-- DRESS CODE EN GROS -->
             <div style="font-size:22px; letter-spacing:4px; font-weight:700; color:white; border: 2px solid white; padding:10px 25px; display:inline-block; border-radius:8px; margin: 15px 0; background:rgba(255,255,255,0.1)">TENUE BLANCHE</div>
         </div>
         <div class="countdown">
@@ -166,7 +181,6 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
             <div><div class="num" id="seconds">00</div><div class="lab">sec</div></div>
         </div>
         <div class="card">
-            <!-- CITATION -->
             <p style="font-size:14px; font-style:italic; line-height: 1.5; margin: 0;">« Que cette nouvelle année de vie t'apporte encore plus de lumière, de bonheur et de souvenirs précieux. »</p>
             <button class="btn" onclick="nextPage(3)">Voir le lieu</button>
         </div>
@@ -217,7 +231,7 @@ const EVENT_DATE = new Date("2026-09-05T16:00:00");
 const WHATSAPP_CONFIRM = "243821328811";
 let opened = false;
 
-// Nom personnalisé URL (?n=Marc)
+// Nom personnalisé URL
 const params = new URLSearchParams(window.location.search);
 const guest = params.get("n") || params.get("invite") || "";
 const guestName = decodeURIComponent(guest).replace(/\+/g," ").trim();
@@ -232,7 +246,7 @@ const env = document.getElementById("envelope");
 env.addEventListener("click", () => {
   if(opened) return;
   opened = true;
-  new Audio('esili.mp3').play().catch(e => console.log("Audio play blocked"));
+  new Audio('esili.mp3').play().catch(e => console.log("Musique bloquée"));
   env.classList.add("open");
   confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ffffff', '#f7ef8a', '#cfb53b'] });
   setTimeout(() => { nextPage(2); }, 1200);
