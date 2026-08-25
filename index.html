@@ -669,7 +669,7 @@ button,input,textarea,select{font:inherit}
       <div class="topnav">
         <button data-page="0" onclick="go(0)">Page 1</button>
         <button data-page="1" onclick="go(1)">Page 2</button>
-        <button data-page="1" onclick="go(1)">Invités</button>
+        <button data-page="3" onclick="go(3)">Livre d'or</button>
         <button data-page="2" onclick="go(2)">Adresse</button>
       </div>
 
@@ -773,7 +773,7 @@ button,input,textarea,select{font:inherit}
       </div>
 
       <div class="dots">
-        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
       </div>
     </div>
   </section>
@@ -1110,7 +1110,7 @@ document.addEventListener("touchend",e=>{
   const dx=e.changedTouches[0].screenX-touchX;
   const dy=e.changedTouches[0].screenY-touchY;
   if(Math.abs(dx)<65||Math.abs(dx)<Math.abs(dy)*1.25)return;
-  if(dx<0&&currentPage<4)go(currentPage+1);
+  if(dx<0&&currentPage<3)go(currentPage+1);
   if(dx>0&&currentPage>0)go(currentPage-1);
 },{passive:true});
 
@@ -1136,7 +1136,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 </script>
 
       <!-- PAGE 4 / LIVRE D'OR -->
-      <article class="page" data-index="4" style="display:none">
+      <article class="page" data-index="3" style="display:none">
         <div class="title">Livre d'or</div>
 
         <div class="card guest-card glass">
