@@ -708,7 +708,12 @@ button,input,textarea,select{font:inherit}
             Votre présence sera confirmée automatiquement avec votre nom.
           </p>
 
+          <div class="guest-ticket">
+            <span>INVITÉ(E)</span>
+            <strong id="guestTicketName">Invité(e)</strong>
+          </div>
 
+          
 
       <!-- PAGE 4 -->
       <article class="page" data-index="3" style="display:none">
@@ -902,6 +907,9 @@ function renderGuests(){
   document.getElementById("guestList").innerHTML=a.map((x,i)=>`<div class="item"><strong>#${i+1}</strong> ${safe(x)}</div>`).join("");
 }
 
+/* Drinks */
+let selectedDrink="Mojito";
+const WHATSAPP_NUMBER="243819794118";
 
 const params=new URLSearchParams(window.location.search);
 const rawGuest=params.get("invite") || params.get("guest") || params.get("nom") || "";
@@ -921,6 +929,26 @@ function displayGuestName(){
 }
 
 
+function selectDrink(button){
+  document.querySelectorAll(".drink-option").forEach(b=>b.classList.remove("active"));
+  button.classList.add("active");
+  selectedDrink=button.dataset.drink;
+  const select=document.getElementById("drinkChoice");
+  if(select)select.value=selectedDrink;
+}
+
+function whatsapp(message){
+  const url="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message);
+  window.open(url,"_blank","noopener");
+}
+
+function saveDrink(){
+  const choice=document.getElementById("drinkChoice");
+  selectedDrink=choice.value;
+
+  const a=JSON.parse(localStorage.getItem("ben_drinks")||"[]");
+  a.push({name:guestName,drink:selectedDrink});localStorage.setItem("ben_drinks",JSON.stringify(a));
+  renderDrinks();
 
   const message=
 `✨ *CONFIRMATION DE PRÉSENCE — BÉNÉDICTE BIUMA* ✨
@@ -929,7 +957,7 @@ function displayGuestName(){
 📅 *Date :* 5 septembre 2026
 🕓 *Heure :* 16h00
 👗 *Dress code :* Chic en blanc
-
+🥂 *Boisson choisie :* ${selectedDrink}
 
 ✅ *Présence confirmée.*
 
