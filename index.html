@@ -669,7 +669,7 @@ button,input,textarea,select{font:inherit}
       <div class="topnav">
         <button data-page="0" onclick="go(0)">Page 1</button>
         <button data-page="1" onclick="go(1)">Page 2</button>
-        <button data-page="2" onclick="go(2)">Confirmation</button>
+        <button data-page="1" onclick="go(1)">Confirmation</button>
         <button data-page="3" onclick="openGuestbook()">Livre d'or</button>
       </div>
 
@@ -695,7 +695,7 @@ button,input,textarea,select{font:inherit}
           </div>
 
           <div class="actions">
-          <audio id="esiliAudio" preload="auto" loop>
+          <audio id="esiliAudio" preload="auto" autoplay loop>
             <source src="esili.mp3" type="audio/mpeg">
           </audio>
           <button class="iconbtn" onclick="toggleEsili()" aria-label="Audio Esili">♫</button>
@@ -743,7 +743,7 @@ button,input,textarea,select{font:inherit}
       </article>
 
       <!-- PAGE 3 / CONFIRMATION DE PRÉSENCE -->
-      <article class="page" data-index="2" style="display:none">
+      <article class="page" data-index="1" style="display:none">
         <div class="title">Confirmation</div>
 
         <div class="card guest-card glass">
@@ -765,11 +765,11 @@ button,input,textarea,select{font:inherit}
           </div>
         </div>
 
-        <button class="btn back" onclick="go(1)">← Retour au dress code</button>
+        <button class="btn back" onclick="go(0)">← Retour</button>
       </article>
 
       <!-- PAGE 5 -->
-      <article class="page" data-index="3" style="display:none">
+      <article class="page" data-index="2" style="display:none">
         <div class="title">Livre d'or</div>
 
         <div class="guestbook-intro">
@@ -943,6 +943,21 @@ countdown();setInterval(countdown,1000);
 
 function openLocation(){window.open(LOCATION_URL,"_blank","noopener")}
 
+function startEsiliAutoplay(){
+  const audio=document.getElementById("esiliAudio");
+  if(!audio)return;
+  audio.volume=1;
+  audio.play().catch(()=>{
+    const resume=()=>{
+      audio.play().catch(()=>{});
+      document.removeEventListener("click",resume);
+      document.removeEventListener("touchstart",resume);
+    };
+    document.addEventListener("click",resume,{once:true});
+    document.addEventListener("touchstart",resume,{once:true});
+  });
+}
+
 function toggleEsili(){
   const audio=document.getElementById("esiliAudio");
   if(!audio)return;
@@ -1025,7 +1040,7 @@ function openGuestbook(){
   if(localStorage.getItem("ben_presence_confirmed")==="1"){
     go(3);
   }else{
-    go(2);
+    go(1);
   }
 }
 
@@ -1175,6 +1190,9 @@ document.querySelectorAll(".page").forEach(p=>{
 
   Le nom est lu automatiquement dans l'URL : aucune saisie manuelle.
 */
+document.addEventListener("DOMContentLoaded",()=>{
+  startEsiliAutoplay();
+});
 </script>
 </body>
 </html>
