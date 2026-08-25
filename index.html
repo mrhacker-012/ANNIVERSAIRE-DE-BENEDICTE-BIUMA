@@ -569,8 +569,8 @@ button,input,textarea,select{font:inherit}
   .countdown{width:min(510px,80vw)}
   .actions{gap:14px}
   .card{width:min(560px,72vw)}
-  .page[data-index="2"],.page[data-index="3"],.page[data-index="4"]{width:min(760px,80vw)}
-  .page[data-index="2"] .card,.page[data-index="3"] .card,.page[data-index="4"] .card{width:100%}
+  .page[data-index="2"],.page[data-index="3"]{width:min(760px,80vw)}
+  .page[data-index="2"] .card,.page[data-index="3"] .card{width:100%}
   .drink-options{grid-template-columns:repeat(4,1fr)}
   .messages-card{max-height:260px}
   .messages{max-height:180px}
@@ -669,8 +669,8 @@ button,input,textarea,select{font:inherit}
       <div class="topnav">
         <button data-page="0" onclick="go(0)">Page 1</button>
         <button data-page="1" onclick="go(1)">Page 2</button>
-        <button data-page="2" onclick="go(2)">Invités</button>
-        <button data-page="4" onclick="openGuestbook()">Livre d'or</button>
+        <button data-page="2" onclick="go(2)">Confirmation</button>
+        <button data-page="3" onclick="openGuestbook()">Livre d'or</button>
       </div>
 
       <!-- PAGE 1 -->
@@ -695,9 +695,14 @@ button,input,textarea,select{font:inherit}
           </div>
 
           <div class="actions">
+          <audio id="esiliAudio" preload="auto" loop>
+            <source src="esili.mp3" type="audio/mpeg">
+          </audio>
+          <button class="iconbtn" onclick="toggleEsili()" aria-label="Audio Esili">♫</button>
+
             <button class="iconbtn" onclick="openLocation()" aria-label="Localisation">⌖</button>
             <button class="iconbtn" onclick="go(1)" aria-label="Dress code">♔</button>
-            <button class="iconbtn" onclick="go(2)" aria-label="Invités">♙</button>
+            <button class="iconbtn" onclick="go(2)" aria-label="Confirmation">✓</button>
             <button class="iconbtn" onclick="openGuestbook()" aria-label="Livre d'or">♡</button>
           </div>
 
@@ -737,29 +742,8 @@ button,input,textarea,select{font:inherit}
         <button class="btn back" onclick="go(0)">← Retour à l'invitation</button>
       </article>
 
-      <!-- PAGE 3 -->
+      <!-- PAGE 3 / CONFIRMATION DE PRÉSENCE -->
       <article class="page" data-index="2" style="display:none">
-        <div class="title">Vos informations</div>
-
-        <div class="card guest-card glass">
-          <div class="card-kicker">INVITATION PERSONNELLE</div>
-          <div class="guest-avatar" id="guestAvatar">B</div>
-          <h3>Bienvenue <span id="guestNameDisplay">à vous</span> ✨</h3>
-          <p class="card-intro">
-            Votre invitation est nominative.<br>
-            Votre présence sera confirmée automatiquement avec votre nom.
-          </p>
-
-          <div class="guest-ticket">
-            <span>INVITÉ(E)</span>
-            <strong id="guestTicketName">Invité(e)</strong>
-
-        </div>
-      </article>
-
-
-      <!-- PAGE 4 / CONFIRMATION DE PRÉSENCE -->
-      <article class="page" data-index="3" style="display:none">
         <div class="title">Confirmation</div>
 
         <div class="card guest-card glass">
@@ -781,11 +765,11 @@ button,input,textarea,select{font:inherit}
           </div>
         </div>
 
-        <button class="btn back" onclick="go(2)">← Retour</button>
+        <button class="btn back" onclick="go(1)">← Retour au dress code</button>
       </article>
 
       <!-- PAGE 5 -->
-      <article class="page" data-index="4" style="display:none">
+      <article class="page" data-index="3" style="display:none">
         <div class="title">Livre d'or</div>
 
         <div class="guestbook-intro">
@@ -823,7 +807,7 @@ button,input,textarea,select{font:inherit}
       </div>
 
       <div class="dots">
-        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
       </div>
     </div>
   </section>
@@ -959,6 +943,17 @@ countdown();setInterval(countdown,1000);
 
 function openLocation(){window.open(LOCATION_URL,"_blank","noopener")}
 
+function toggleEsili(){
+  const audio=document.getElementById("esiliAudio");
+  if(!audio)return;
+  if(audio.paused){
+    audio.play().catch(()=>{});
+  }else{
+    audio.pause();
+  }
+}
+
+
 /* Guests */
 function addGuest(){
   const input=document.getElementById("guestName"), name=input.value.trim();
@@ -1028,9 +1023,9 @@ function selectDrink(button){
 
 function openGuestbook(){
   if(localStorage.getItem("ben_presence_confirmed")==="1"){
-    go(4);
-  }else{
     go(3);
+  }else{
+    go(2);
   }
 }
 
@@ -1052,7 +1047,18 @@ Merci 💕`;
 
   localStorage.setItem("ben_presence_confirmed","1");
   launchConfetti(90);
-  setTimeout(()=>go(4),350);
+  setTimeout(()=>showThankYou(),350);
+}
+
+function showThankYou(){
+  const card=document.querySelector('[data-index="2"] .guest-card');
+  if(card){
+    card.innerHTML=`<div class="card-kicker">MERCI ✨</div>
+      <div class="guest-avatar">✓</div>
+      <h3>Merci <span>${safe(guestName)}</span> !</h3>
+      <p class="card-intro">Votre présence est bien confirmée.<br>Nous avons hâte de vous retrouver.</p>
+      <button class="btn full" onclick="go(3)">♡ Accéder au livre d'or</button>`;
+  }
 }
 
 function confirmPresence(){
@@ -1149,7 +1155,7 @@ document.addEventListener("touchend",e=>{
   const dx=e.changedTouches[0].screenX-touchX;
   const dy=e.changedTouches[0].screenY-touchY;
   if(Math.abs(dx)<65||Math.abs(dx)<Math.abs(dy)*1.25)return;
-  if(dx<0&&currentPage<4)go(currentPage+1);
+  if(dx<0&&currentPage<3)go(currentPage+1);
   if(dx>0&&currentPage>0)go(currentPage-1);
 },{passive:true});
 
