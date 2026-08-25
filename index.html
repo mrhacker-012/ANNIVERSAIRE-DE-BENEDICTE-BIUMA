@@ -670,7 +670,7 @@ button,input,textarea,select{font:inherit}
         <button data-page="0" onclick="go(0)">Page 1</button>
         <button data-page="1" onclick="go(1)">Page 2</button>
         <button data-page="1" onclick="go(1)">Invités</button>
-        <button data-page="2" onclick="go(2)">Livre d'or</button>
+        <button data-page="2" onclick="go(2)">Adresse</button>
       </div>
 
       <!-- PAGE 1 -->
@@ -743,32 +743,23 @@ button,input,textarea,select{font:inherit}
       </article>
 
       <!-- PAGE 5 -->
+      <!-- PAGE 3 / ADRESSE -->
       <article class="page" data-index="2" style="display:none">
-        <div class="title">Livre d'or</div>
+        <div class="title">Adresse</div>
 
-        <div class="guestbook-intro">
-          <div class="guestbook-symbol">♡</div>
-          <p>
-            Un mot, un souvenir, une pensée…<br>
-            laissez votre empreinte pour Bénédicte.
+        <div class="card guest-card glass">
+          <div class="card-kicker">LIEU DE LA CÉRÉMONIE</div>
+          <h3>Horizon 6 Gombe 📍</h3>
+          <p class="card-intro">
+            <strong>Lieu :</strong> Horizon 6 Gombe<br>
+            <strong>Référence :</strong> Place des Évolués, Auditorat
           </p>
+          <button class="btn full" onclick="openLocation()">
+            📍 Ouvrir dans Google Maps
+          </button>
         </div>
 
-        <div class="card message-card">
-          <div class="card-kicker">UN PETIT MOT POUR ELLE</div>
-          <div class="author-chip">♡ <span id="messageAuthor">Invité(e)</span></div>
-          <textarea class="textarea" id="messageText" rows="3"
-            placeholder="Écrivez votre message pour Bénédicte..."></textarea>
-          <button class="btn full" onclick="addMessage()">♡ Signer le livre d'or</button>
-        </div>
-
-        <div class="card messages-card">
-          <div class="messages-head">
-            <span>Les mots des invités</span>
-            <span class="message-count" id="messageCount">0</span>
-          </div>
-          <div class="list messages" id="messages"></div>
-        </div>
+        <button class="btn back" onclick="go(1)">← Retour</button>
       </article>
 
 
@@ -971,7 +962,7 @@ function renderGuests(){
 
 /* Drinks */
 let selectedDrink="Mojito";
-const WHATSAPP_NUMBER="243821328811";
+const WHATSAPP_NUMBER="243819794118";
 const LIVRE_OR_NUMBER="243821328811";
 
 const params=new URLSearchParams(window.location.search);
