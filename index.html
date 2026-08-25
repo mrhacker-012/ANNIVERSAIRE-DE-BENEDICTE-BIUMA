@@ -569,8 +569,8 @@ button,input,textarea,select{font:inherit}
   .countdown{width:min(510px,80vw)}
   .actions{gap:14px}
   .card{width:min(560px,72vw)}
-  .page[data-index="2"],.page[data-index="3"]{width:min(760px,80vw)}
-  .page[data-index="2"] .card,.page[data-index="3"] .card{width:100%}
+  .page[data-index="2"],.page[data-index="3"],.page[data-index="4"]{width:min(760px,80vw)}
+  .page[data-index="2"] .card,.page[data-index="3"] .card,.page[data-index="4"] .card{width:100%}
   .drink-options{grid-template-columns:repeat(4,1fr)}
   .messages-card{max-height:260px}
   .messages{max-height:180px}
@@ -590,6 +590,49 @@ button,input,textarea,select{font:inherit}
   .num{font-size:21px}
   .drink-options{grid-template-columns:1fr 1fr}
 }
+
+/* --- SIGNATURE ELENAEL STYLE --- */
+@keyframes goldShimmer { to { background-position: 200% center; } }
+
+.elenael-signature {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: 65px;
+    z-index: 100;
+}
+
+.sig-conception {
+    font: 500 9px "Montserrat", sans-serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+    opacity: 0.9;
+    margin-bottom: 2px;
+}
+
+.sig-brand {
+    font-family: "Great Vibes", cursive;
+    font-size: 28px;
+    background: linear-gradient(90deg, #cfb53b, #f7ef8a, #aa771c, #f7ef8a, #cfb53b);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    animation: goldShimmer 3s linear infinite;
+}
+
+.sig-motto {
+    font: 400 10px "Montserrat", sans-serif;
+    color: white;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 3px;
+    display: inline-block;
+    margin-top: 2px;
+    opacity: 0.8;
+}
+
 </style>
 </head>
 
@@ -627,7 +670,7 @@ button,input,textarea,select{font:inherit}
         <button data-page="0" onclick="go(0)">Page 1</button>
         <button data-page="1" onclick="go(1)">Page 2</button>
         <button data-page="2" onclick="go(2)">Invités</button>
-        <button data-page="3" onclick="go(3)">Livre d'or</button>
+        <button data-page="4" onclick="openGuestbook()">Livre d'or</button>
       </div>
 
       <!-- PAGE 1 -->
@@ -655,7 +698,7 @@ button,input,textarea,select{font:inherit}
             <button class="iconbtn" onclick="openLocation()" aria-label="Localisation">⌖</button>
             <button class="iconbtn" onclick="go(1)" aria-label="Dress code">♔</button>
             <button class="iconbtn" onclick="go(2)" aria-label="Invités">♙</button>
-            <button class="iconbtn" onclick="go(3)" aria-label="Livre d'or">♡</button>
+            <button class="iconbtn" onclick="openGuestbook()" aria-label="Livre d'or">♡</button>
           </div>
 
           <div class="quote">« Que cette nouvelle année de vie t'apporte encore plus de lumière, de bonheur et de souvenirs précieux. »</div>
@@ -714,8 +757,35 @@ button,input,textarea,select{font:inherit}
         </div>
       </article>
 
-      <!-- PAGE 4 -->
+
+      <!-- PAGE 4 / CONFIRMATION DE PRÉSENCE -->
       <article class="page" data-index="3" style="display:none">
+        <div class="title">Confirmation</div>
+
+        <div class="card guest-card glass">
+          <div class="card-kicker">VOTRE PRÉSENCE</div>
+          <div class="guest-avatar" id="confirmAvatar">B</div>
+          <h3><span id="confirmGuestName">Invité(e)</span> ✨</h3>
+          <p class="card-intro">
+            Cette invitation est personnelle.<br>
+            Merci de confirmer votre présence pour accéder au livre d'or.
+          </p>
+
+          <button class="btn full whatsapp-btn" onclick="confirmPresenceAndUnlock()">
+            ✓ Confirmer ma présence
+          </button>
+
+          <div class="guest-note">
+            <span>✓</span>
+            <div>Après confirmation, l'accès au <strong>Livre d'or</strong> sera débloqué.</div>
+          </div>
+        </div>
+
+        <button class="btn back" onclick="go(2)">← Retour</button>
+      </article>
+
+      <!-- PAGE 5 -->
+      <article class="page" data-index="4" style="display:none">
         <div class="title">Livre d'or</div>
 
         <div class="guestbook-intro">
@@ -743,8 +813,17 @@ button,input,textarea,select{font:inherit}
         </div>
       </article>
 
+
+      <!-- SIGNATURE ELENAEL EVENTS -->
+      <div class="elenael-signature">
+        <div class="sig-conception">Une Conception Signée</div>
+        <a href="https://wa.me/243992180557" target="_blank" class="sig-brand">Elenael Events</a>
+        <br>
+        <div class="sig-motto">L'art de l'événement d'exception</div>
+      </div>
+
       <div class="dots">
-        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
       </div>
     </div>
   </section>
@@ -919,6 +998,12 @@ function displayGuestName(){
   const coverName=document.getElementById("coverGuestName");
   if(coverName)coverName.textContent=guestName;
 
+  const confirmName=document.getElementById("confirmGuestName");
+  if(confirmName)confirmName.textContent=guestName;
+
+  const confirmAvatar=document.getElementById("confirmAvatar");
+  if(confirmAvatar)confirmAvatar.textContent=(guestName.trim().split(/\s+/)[0]||"B").charAt(0).toUpperCase();
+
   const first=(guestName.trim().split(/\s+/)[0]||"B").charAt(0).toUpperCase();
   const safeName=safe(guestName);
   const avatar=document.getElementById("guestAvatar");
@@ -938,6 +1023,36 @@ function selectDrink(button){
   selectedDrink=button.dataset.drink;
   const select=document.getElementById("drinkChoice");
   if(select)select.value=selectedDrink;
+}
+
+
+function openGuestbook(){
+  if(localStorage.getItem("ben_presence_confirmed")==="1"){
+    go(4);
+  }else{
+    go(3);
+  }
+}
+
+function confirmPresenceAndUnlock(){
+  const message=
+`✨ *CONFIRMATION DE PRÉSENCE — BÉNÉDICTE BIUMA* ✨
+
+👤 *Invité(e) :* ${guestName}
+📅 *Date :* 5 septembre 2026
+🕓 *Heure :* 16h00
+👗 *Dress code :* Chic en blanc
+
+✅ *Présence confirmée.*
+
+Merci 💕`;
+
+  const url="https://wa.me/"+CONFIRMATION_NUMBER+"?text="+encodeURIComponent(message);
+  window.open(url,"_blank","noopener");
+
+  localStorage.setItem("ben_presence_confirmed","1");
+  launchConfetti(90);
+  setTimeout(()=>go(4),350);
 }
 
 function confirmPresence(){
@@ -1034,7 +1149,7 @@ document.addEventListener("touchend",e=>{
   const dx=e.changedTouches[0].screenX-touchX;
   const dy=e.changedTouches[0].screenY-touchY;
   if(Math.abs(dx)<65||Math.abs(dx)<Math.abs(dy)*1.25)return;
-  if(dx<0&&currentPage<3)go(currentPage+1);
+  if(dx<0&&currentPage<4)go(currentPage+1);
   if(dx>0&&currentPage>0)go(currentPage-1);
 },{passive:true});
 
