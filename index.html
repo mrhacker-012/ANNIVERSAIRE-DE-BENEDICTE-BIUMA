@@ -695,6 +695,7 @@ button,input,textarea,select{font:inherit}
           </div>
 
           <div class="actions">
+          <button class="iconbtn" onclick="go(3)" aria-label="Livre d'or">♡</button>
           <audio id="esiliAudio" preload="auto" autoplay loop>
             <source src="esili.mp3" type="audio/mpeg">
           </audio>
@@ -772,7 +773,7 @@ button,input,textarea,select{font:inherit}
       </div>
 
       <div class="dots">
-        <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
       </div>
     </div>
   </section>
@@ -905,6 +906,23 @@ function countdown(){
   pulseNumber("seconds",seconds);
 }
 countdown();setInterval(countdown,1000);
+
+function sendLivreOr(){
+  const field=document.getElementById("guestbookMessage");
+  const message=(field ? field.value : "").trim();
+  if(!message){
+    if(field)field.focus();
+    return;
+  }
+  const text=`✨ *LIVRE D'OR — BÉNÉDICTE BIUMA* ✨
+
+👤 *Invité(e) :* ${guestName}
+
+💌 *Message :*
+${message}`;
+  const url="https://wa.me/"+LIVRE_OR_NUMBER+"?text="+encodeURIComponent(text);
+  window.open(url,"_blank","noopener");
+}
 
 function openLocation(){window.open(LOCATION_URL,"_blank","noopener")}
 
@@ -1092,7 +1110,7 @@ document.addEventListener("touchend",e=>{
   const dx=e.changedTouches[0].screenX-touchX;
   const dy=e.changedTouches[0].screenY-touchY;
   if(Math.abs(dx)<65||Math.abs(dx)<Math.abs(dy)*1.25)return;
-  if(dx<0&&currentPage<2)go(currentPage+1);
+  if(dx<0&&currentPage<3)go(currentPage+1);
   if(dx>0&&currentPage>0)go(currentPage-1);
 },{passive:true});
 
@@ -1116,5 +1134,25 @@ document.addEventListener("DOMContentLoaded",()=>{
   startEsiliAutoplay();
 });
 </script>
+
+      <!-- PAGE 4 / LIVRE D'OR -->
+      <article class="page" data-index="3" style="display:none">
+        <div class="title">Livre d'or</div>
+
+        <div class="card guest-card glass">
+          <div class="card-kicker">VOS MOTS</div>
+          <h3>Laissez un message ✨</h3>
+          <p class="card-intro">Un petit mot pour Bénédicte sera toujours précieux.</p>
+
+          <textarea id="guestbookMessage" class="input" rows="5" placeholder="Écrivez votre message..."></textarea>
+
+          <button class="btn full" onclick="sendLivreOr()">
+            ♡ Envoyer mon message
+          </button>
+        </div>
+
+        <button class="btn back" onclick="go(2)">← Retour</button>
+      </article>
+
 </body>
 </html>
