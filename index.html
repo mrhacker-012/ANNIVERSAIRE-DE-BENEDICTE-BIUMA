@@ -669,8 +669,8 @@ button,input,textarea,select{font:inherit}
       <div class="topnav">
         <button data-page="0" onclick="go(0)">Page 1</button>
         <button data-page="1" onclick="go(1)">Page 2</button>
-        <button data-page="3" onclick="go(3)">Livre d'or</button>
         <button data-page="2" onclick="go(2)">Adresse</button>
+        <button data-page="3" onclick="go(3)">Livre d'or</button>
       </div>
 
       <!-- PAGE 1 -->
@@ -695,7 +695,7 @@ button,input,textarea,select{font:inherit}
           </div>
 
           <div class="actions">
-          <button class="iconbtn" onclick="go(4)" aria-label="Livre d'or">♡</button>
+          <button class="iconbtn" onclick="go(3)" aria-label="Livre d'or">♡</button>
           <audio id="esiliAudio" preload="auto" autoplay loop>
             <source src="esili.mp3" type="audio/mpeg">
           </audio>
@@ -704,7 +704,7 @@ button,input,textarea,select{font:inherit}
             <button class="iconbtn" onclick="openLocation()" aria-label="Localisation">⌖</button>
             <button class="iconbtn" onclick="go(1)" aria-label="Dress code">♔</button>
             <button class="iconbtn" onclick="go(2)" aria-label="Confirmation">✓</button>
-            <button class="iconbtn" onclick="openGuestbook()" aria-label="Livre d'or">♡</button>
+            <button class="iconbtn" onclick="go(3)" aria-label="Livre d'or">♡</button>
           </div>
 
           <div class="quote">« Que cette nouvelle année de vie t'apporte encore plus de lumière, de bonheur et de souvenirs précieux. »</div>
@@ -763,6 +763,27 @@ button,input,textarea,select{font:inherit}
         <button class="btn back" onclick="go(1)">← Retour</button>
       </article>
 
+
+
+
+      <!-- PAGE 4 / LIVRE D'OR -->
+      <article class="page" data-index="3" style="display:none">
+        <div class="title">Livre d'or</div>
+
+        <div class="card guest-card glass">
+          <div class="card-kicker">VOS MOTS</div>
+          <h3>Laissez un message ✨</h3>
+          <p class="card-intro">Un petit mot pour Bénédicte sera toujours précieux.</p>
+
+          <textarea id="guestbookMessage" class="input" rows="5" placeholder="Écrivez votre message..."></textarea>
+
+          <button class="btn full" onclick="sendLivreOr()">
+            ♡ Envoyer mon message
+          </button>
+        </div>
+
+        <button class="btn back" onclick="go(2)">← Retour</button>
+      </article>
 
       <!-- SIGNATURE ELENAEL EVENTS -->
       <div class="elenael-signature">
@@ -1133,26 +1154,5 @@ document.querySelectorAll(".page").forEach(p=>{
 document.addEventListener("DOMContentLoaded",()=>{
   startEsiliAutoplay();
 });
-</script>
-
-      <!-- PAGE 4 / LIVRE D'OR -->
-      <article class="page" data-index="3" style="display:none">
-        <div class="title">Livre d'or</div>
-
-        <div class="card guest-card glass">
-          <div class="card-kicker">VOS MOTS</div>
-          <h3>Laissez un message ✨</h3>
-          <p class="card-intro">Un petit mot pour Bénédicte sera toujours précieux.</p>
-
-          <textarea id="guestbookMessage" class="input" rows="5" placeholder="Écrivez votre message..."></textarea>
-
-          <button class="btn full" onclick="sendLivreOr()">
-            ♡ Envoyer mon message
-          </button>
-        </div>
-
-        <button class="btn back" onclick="go(2)">← Retour</button>
-      </article>
-
-</body>
+</script></body>
 </html>
