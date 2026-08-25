@@ -569,8 +569,8 @@ button,input,textarea,select{font:inherit}
   .countdown{width:min(510px,80vw)}
   .actions{gap:14px}
   .card{width:min(560px,72vw)}
-  .page[data-index="2"],.page[data-index="3"]{width:min(760px,80vw)}
-  .page[data-index="2"] .card,.page[data-index="3"] .card{width:100%}
+  .page[data-index="2"]{width:min(760px,80vw)}
+  .page[data-index="2"] .card{width:100%}
   .drink-options{grid-template-columns:repeat(4,1fr)}
   .messages-card{max-height:260px}
   .messages{max-height:180px}
@@ -669,8 +669,8 @@ button,input,textarea,select{font:inherit}
       <div class="topnav">
         <button data-page="0" onclick="go(0)">Page 1</button>
         <button data-page="1" onclick="go(1)">Page 2</button>
-        <button data-page="1" onclick="go(1)">Confirmation</button>
-        <button data-page="3" onclick="openGuestbook()">Livre d'or</button>
+        <button data-page="1" onclick="go(1)">Invités</button>
+        <button data-page="2" onclick="go(2)">Livre d'or</button>
       </div>
 
       <!-- PAGE 1 -->
@@ -742,32 +742,6 @@ button,input,textarea,select{font:inherit}
         <button class="btn back" onclick="go(0)">← Retour à l'invitation</button>
       </article>
 
-      <!-- PAGE 3 / CONFIRMATION DE PRÉSENCE -->
-      <article class="page" data-index="1" style="display:none">
-        <div class="title">Confirmation</div>
-
-        <div class="card guest-card glass">
-          <div class="card-kicker">VOTRE PRÉSENCE</div>
-          <div class="guest-avatar" id="confirmAvatar">B</div>
-          <h3><span id="confirmGuestName">Invité(e)</span> ✨</h3>
-          <p class="card-intro">
-            Cette invitation est personnelle.<br>
-            Merci de confirmer votre présence pour accéder au livre d'or.
-          </p>
-
-          <button class="btn full whatsapp-btn" onclick="confirmPresenceAndUnlock()">
-            ✓ Confirmer ma présence
-          </button>
-
-          <div class="guest-note">
-            <span>✓</span>
-            <div>Après confirmation, l'accès au <strong>Livre d'or</strong> sera débloqué.</div>
-          </div>
-        </div>
-
-        <button class="btn back" onclick="go(0)">← Retour</button>
-      </article>
-
       <!-- PAGE 5 -->
       <article class="page" data-index="2" style="display:none">
         <div class="title">Livre d'or</div>
@@ -807,7 +781,7 @@ button,input,textarea,select{font:inherit}
       </div>
 
       <div class="dots">
-        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
       </div>
     </div>
   </section>
@@ -998,7 +972,6 @@ function renderGuests(){
 /* Drinks */
 let selectedDrink="Mojito";
 const WHATSAPP_NUMBER="243819794118";
-const CONFIRMATION_NUMBER="243821328811";
 
 const params=new URLSearchParams(window.location.search);
 const rawGuest=params.get("invite") || params.get("guest") || params.get("nom") || "";
@@ -1007,12 +980,6 @@ const guestName=decodeURIComponent(rawGuest).replace(/\+/g," ").trim() || "Invit
 function displayGuestName(){
   const coverName=document.getElementById("coverGuestName");
   if(coverName)coverName.textContent=guestName;
-
-  const confirmName=document.getElementById("confirmGuestName");
-  if(confirmName)confirmName.textContent=guestName;
-
-  const confirmAvatar=document.getElementById("confirmAvatar");
-  if(confirmAvatar)confirmAvatar.textContent=(guestName.trim().split(/\s+/)[0]||"B").charAt(0).toUpperCase();
 
   const first=(guestName.trim().split(/\s+/)[0]||"B").charAt(0).toUpperCase();
   const safeName=safe(guestName);
@@ -1036,45 +1003,8 @@ function selectDrink(button){
 }
 
 
-function openGuestbook(){
-  if(localStorage.getItem("ben_presence_confirmed")==="1"){
-    go(3);
-  }else{
-    go(1);
-  }
-}
 
-function confirmPresenceAndUnlock(){
-  const message=
-`✨ *CONFIRMATION DE PRÉSENCE — BÉNÉDICTE BIUMA* ✨
 
-👤 *Invité(e) :* ${guestName}
-📅 *Date :* 5 septembre 2026
-🕓 *Heure :* 16h00
-👗 *Dress code :* Chic en blanc
-
-✅ *Présence confirmée.*
-
-Merci 💕`;
-
-  const url="https://wa.me/"+CONFIRMATION_NUMBER+"?text="+encodeURIComponent(message);
-  window.open(url,"_blank","noopener");
-
-  localStorage.setItem("ben_presence_confirmed","1");
-  launchConfetti(90);
-  setTimeout(()=>showThankYou(),350);
-}
-
-function showThankYou(){
-  const card=document.querySelector('[data-index="2"] .guest-card');
-  if(card){
-    card.innerHTML=`<div class="card-kicker">MERCI ✨</div>
-      <div class="guest-avatar">✓</div>
-      <h3>Merci <span>${safe(guestName)}</span> !</h3>
-      <p class="card-intro">Votre présence est bien confirmée.<br>Nous avons hâte de vous retrouver.</p>
-      <button class="btn full" onclick="go(3)">♡ Accéder au livre d'or</button>`;
-  }
-}
 
 function confirmPresence(){
   const message=
@@ -1170,7 +1100,7 @@ document.addEventListener("touchend",e=>{
   const dx=e.changedTouches[0].screenX-touchX;
   const dy=e.changedTouches[0].screenY-touchY;
   if(Math.abs(dx)<65||Math.abs(dx)<Math.abs(dy)*1.25)return;
-  if(dx<0&&currentPage<3)go(currentPage+1);
+  if(dx<0&&currentPage<2)go(currentPage+1);
   if(dx>0&&currentPage>0)go(currentPage-1);
 },{passive:true});
 
