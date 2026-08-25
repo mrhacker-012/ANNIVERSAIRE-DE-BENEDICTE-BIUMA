@@ -605,7 +605,7 @@ button,input,textarea,select{font:inherit}
     <div class="view">
       <div class="small-brand">Une invitation pour vous</div>
       <div class="cover-copy">
-        <strong>Bénédicte Biuma</strong><br><br>
+        <strong id="coverGuestName">Invité(e)</strong><br><br>
         Touchez le sceau pour<br>ouvrir votre invitation
       </div>
       <div class="envelope-wrap">
@@ -909,12 +909,16 @@ function renderGuests(){
 /* Drinks */
 let selectedDrink="Mojito";
 const WHATSAPP_NUMBER="243819794118";
+const CONFIRMATION_NUMBER="243821328811";
 
 const params=new URLSearchParams(window.location.search);
 const rawGuest=params.get("invite") || params.get("guest") || params.get("nom") || "";
 const guestName=decodeURIComponent(rawGuest).replace(/\+/g," ").trim() || "Invité(e)";
 
 function displayGuestName(){
+  const coverName=document.getElementById("coverGuestName");
+  if(coverName)coverName.textContent=guestName;
+
   const first=(guestName.trim().split(/\s+/)[0]||"B").charAt(0).toUpperCase();
   const safeName=safe(guestName);
   const avatar=document.getElementById("guestAvatar");
@@ -934,6 +938,24 @@ function selectDrink(button){
   selectedDrink=button.dataset.drink;
   const select=document.getElementById("drinkChoice");
   if(select)select.value=selectedDrink;
+}
+
+function confirmPresence(){
+  const message=
+`✨ *CONFIRMATION DE PRÉSENCE — BÉNÉDICTE BIUMA* ✨
+
+👤 *Invité(e) :* ${guestName}
+📅 *Date :* 5 septembre 2026
+🕓 *Heure :* 16h00
+👗 *Dress code :* Chic en blanc
+
+✅ *Présence confirmée.*
+
+Merci 💕`;
+
+  const url="https://wa.me/"+CONFIRMATION_NUMBER+"?text="+encodeURIComponent(message);
+  window.open(url,"_blank","noopener");
+  launchConfetti(90);
 }
 
 function whatsapp(message){
