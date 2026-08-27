@@ -811,6 +811,7 @@ const main=document.getElementById("mainScreen");
 const envelope=document.getElementById("envelope");
 
 envelope.addEventListener("click",()=>{
+  startEsiliAutoplay();
   if(opened)return;
   opened=true;
   envelope.classList.add("open");
